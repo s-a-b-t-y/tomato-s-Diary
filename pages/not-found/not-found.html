@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found — Tomato's Dairy</title>
+  <link rel="stylesheet" href="../../styles/shared/variables.css">
+  <link rel="stylesheet" href="../../styles/shared/base.css">
+  <link rel="stylesheet" href="../../styles/shared/animations.css">
+  <link rel="stylesheet" href="../../styles/shared/utilities.css">
+  <link rel="stylesheet" href="../../components/buttons/buttons.css">
+  <link rel="stylesheet" href="../../components/loading/loading.css">
+  <link rel="stylesheet" href="not-found.css">
+</head>
+<body>
+  <main class="page not-found" id="app">
+    <div class="not-found__content animate-fade-in-up">
+      <div class="not-found__illustration">
+        <svg viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="130" cy="130" r="120" fill="#1E2D4F" opacity="0.3"/>
+          <rect x="60" y="50" width="140" height="180" rx="10" fill="#162040" stroke="#5B9BD5" stroke-width="2"/>
+          <rect x="72" y="50" width="128" height="180" rx="10" fill="#1E2D4F" stroke="#5B9BD5" stroke-width="1.5"/>
+          <line x1="90" y1="90" x2="180" y2="90" stroke="#3A4F73" stroke-width="2" stroke-linecap="round"/>
+          <line x1="90" y1="110" x2="160" y2="110" stroke="#3A4F73" stroke-width="2" stroke-linecap="round"/>
+          <line x1="90" y1="130" x2="170" y2="130" stroke="#3A4F73" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="130" cy="165" r="15" fill="none" stroke="#5B9BD5" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="130" y="171" text-anchor="middle" fill="#5B9BD5" font-family="serif" font-size="18" font-weight="600">?</text>
+          <circle cx="200" cy="70" r="20" fill="#5B9BD5" opacity="0.1"/>
+          <circle cx="60" cy="200" r="12" fill="#8BA3CC" opacity="0.15"/>
+          <circle cx="210" cy="210" r="10" fill="#5B9BD5" opacity="0.1"/>
+          <path d="M195 150L205 135L215 150" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+        </svg>
+      </div>
+
+      <span class="not-found__code">404</span>
+      <h1 class="not-found__title">This page seems to have wandered off</h1>
+      <p class="not-found__message">
+        Like a page torn from a diary, this space is empty. Let's guide you back to where your words live.
+      </p>
+      <div class="not-found__actions">
+        <a href="../../index.html" class="btn btn--primary btn--large">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Return Home
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script src="../../utilities/helpers.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entries — Tomato's Dairy</title>
+  <link rel="stylesheet" href="../../styles/shared/variables.css">
+  <link rel="stylesheet" href="../../styles/shared/base.css">
+  <link rel="stylesheet" href="../../styles/shared/animations.css">
+  <link rel="stylesheet" href="../../styles/shared/utilities.css">
+  <link rel="stylesheet" href="../../components/navbar/navbar.css">
+  <link rel="stylesheet" href="../../components/footer/footer.css">
+  <link rel="stylesheet" href="../../components/buttons/buttons.css">
+  <link rel="stylesheet" href="../../components/cards/diary-card.css">
+  <link rel="stylesheet" href="../../components/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../../components/loading/loading.css">
+  <link rel="stylesheet" href="entries.css">
+</head>
+<body>
+  <div class="loading-screen" id="loadingScreen" role="status" aria-label="Loading">
+    <div class="loading-screen__book">
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="8" width="35" height="44" rx="4" fill="#1E2D4F" stroke="#5B9BD5" stroke-width="1.5"/>
+        <rect x="15" y="8" width="35" height="44" rx="4" fill="#162040" stroke="#5B9BD5" stroke-width="1.5"/>
+        <line x1="22" y1="20" x2="40" y2="20" stroke="#3A4F73" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="22" y1="28" x2="36" y2="28" stroke="#3A4F73" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="22" y1="36" x2="38" y2="36" stroke="#3A4F73" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <p class="loading-screen__text">
+      Gathering your memories
+      <span class="loading-screen__dots"><span></span><span></span><span></span></span>
+    </p>
+  </div>
+
+  <main class="page entries-page" id="app">
+    <div class="container entries-page__inner">
+      <div class="entries-page__header">
+        <h1 class="entries-page__title">Your Memories</h1>
+        <p class="entries-page__subtitle">Every page tells a story worth remembering</p>
+      </div>
+
+      <div class="entries-page__toolbar">
+        <div class="entries-page__search">
+          <div class="form-search">
+            <span class="form-search__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </span>
+            <input type="search" class="form-search__input" id="searchInput" placeholder="Search your memories..." aria-label="Search entries">
+          </div>
+        </div>
+        <div class="entries-page__filters">
+          <select class="entries-page__sort-select" id="sortSelect" aria-label="Sort entries">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="title">Title A-Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="entries-page__mood-filter" id="moodFilter" role="tablist" aria-label="Filter by mood">
+        <button class="entries-page__mood-chip active" data-mood="all" role="tab" aria-selected="true">All</button>
+      </div>
+
+      <div class="entries-page__grid" id="entriesGrid"></div>
+
+      <div class="entries-page__pagination" id="pagination"></div>
+
+      <p class="entries-page__count" id="entriesCount"></p>
+    </div>
+  </main>
+
+  <script src="../../utilities/helpers.js"></script>
+  <script src="../../utilities/data.js"></script>
+  <script src="../../utilities/service.js"></script>
+  <script src="../../components/buttons/buttons.js"></script>
+  <script src="../../components/navbar/navbar.js"></script>
+  <script src="../../components/footer/footer.js"></script>
+  <script src="../../components/cards/diary-card.js"></script>
+  <script src="../../components/empty-state/empty-state.js"></script>
+  <script src="entries.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tomato's Dairy — Your Private World</title>
+  <meta name="description" content="A peaceful, elegant digital diary — Tomato's Dairy. Your thoughts find a beautiful home.">
+  <link rel="stylesheet" href="styles/shared/variables.css">
+  <link rel="stylesheet" href="styles/shared/base.css">
+  <link rel="stylesheet" href="styles/shared/animations.css">
+  <link rel="stylesheet" href="styles/shared/utilities.css">
+  <link rel="stylesheet" href="components/navbar/navbar.css">
+  <link rel="stylesheet" href="components/footer/footer.css">
+  <link rel="stylesheet" href="components/buttons/buttons.css">
+  <link rel="stylesheet" href="components/loading/loading.css">
+  <link rel="stylesheet" href="pages/home/home.css">
+</head>
+<body>
+  <div class="loading-screen" id="loadingScreen" role="status" aria-label="Loading">
+    <div class="loading-screen__book">
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="8" width="35" height="44" rx="4" fill="#1E2D4F" stroke="#5B9BD5" stroke-width="1.5"/>
+        <rect x="15" y="8" width="35" height="44" rx="4" fill="#162040" stroke="#5B9BD5" stroke-width="1.5"/>
+        <line x1="22" y1="20" x2="40" y2="20" stroke="#3A4F73" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="22" y1="28" x2="36" y2="28" stroke="#3A4F73" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="22" y1="36" x2="38" y2="36" stroke="#3A4F73" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <p class="loading-screen__text">
+      Opening your dairy
+      <span class="loading-screen__dots"><span></span><span></span><span></span></span>
+    </p>
+  </div>
+
+  <main class="page" id="app">
+    <section class="home-hero" aria-label="Welcome">
+      <div class="home-hero__bg">
+        <div class="home-hero__circle home-hero__circle--1"></div>
+        <div class="home-hero__circle home-hero__circle--2"></div>
+        <div class="home-hero__circle home-hero__circle--3"></div>
+      </div>
+
+      <div class="home-hero__content">
+        <div class="home-hero__text">
+          <span class="home-hero__badge">✦ A quiet place for your thoughts</span>
+          <h1 class="home-hero__title">
+            Your thoughts deserve a <em>beautiful</em> home
+          </h1>
+          <p class="home-hero__subtitle">
+            Tomato's Dairy is a peaceful space where your words find warmth, your feelings find safety, and every memory finds its place.
+          </p>
+          <div class="home-hero__actions">
+            <a href="pages/diary/diary.html" class="btn btn--primary btn--large">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              Start Writing
+            </a>
+            <a href="pages/entries/entries.html" class="btn btn--secondary btn--large">
+              Read Entries
+            </a>
+          </div>
+        </div>
+
+        <div class="home-hero__illustration">
+          <svg viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="210" cy="210" r="180" fill="#1E2D4F" opacity="0.3"/>
+            <circle cx="210" cy="210" r="140" fill="#162040" opacity="0.2"/>
+            <rect x="110" y="80" width="200" height="260" rx="12" fill="#162040" stroke="#5B9BD5" stroke-width="2"/>
+            <rect x="125" y="80" width="185" height="260" rx="12" fill="#1E2D4F" stroke="#5B9BD5" stroke-width="1.5"/>
+            <line x1="150" y1="140" x2="280" y2="140" stroke="#3A4F73" stroke-width="2" stroke-linecap="round"/>
+            <line x1="150" y1="165" x2="260" y2="165" stroke="#3A4F73" stroke-width="2" stroke-linecap="round"/>
+            <line x1="150" y1="190" x2="270" y2="190" stroke="#3A4F73" stroke-width="2" stroke-linecap="round"/>
+            <line x1="150" y1="215" x2="240" y2="215" stroke="#3A4F73" stroke-width="2" stroke-linecap="round"/>
+            <line x1="150" y1="240" x2="265" y2="240" stroke="#3A4F73" stroke-width="2" stroke-linecap="round"/>
+            <line x1="150" y1="265" x2="220" y2="265" stroke="#3A4F73" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="300" cy="100" r="30" fill="#5B9BD5" opacity="0.15"/>
+            <path d="M290 90C290 90 300 100 300 110C300 120 290 125 290 125" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="95" cy="290" r="20" fill="#8BA3CC" opacity="0.15"/>
+            <circle cx="330" cy="310" r="15" fill="#5B9BD5" opacity="0.1"/>
+            <path d="M320 200L330 180L340 200" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+            <circle cx="80" cy="150" r="8" fill="#C9A96E" opacity="0.2"/>
+            <circle cx="340" cy="250" r="6" fill="#5B9BD5" opacity="0.15"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-features" aria-label="Features">
+      <div class="container home-features__inner">
+        <h2 class="home-features__title">A diary that feels like home</h2>
+        <p class="home-features__subtitle">Every detail crafted to make your writing experience magical</p>
+        <div class="home-features__grid">
+          <div class="home-feature animate-fade-in-up">
+            <div class="home-feature__icon">✍️</div>
+            <h3 class="home-feature__title">Beautiful Writing</h3>
+            <p class="home-feature__text">A distraction-free space with elegant typography that makes every word feel special.</p>
+          </div>
+          <div class="home-feature animate-fade-in-up delay-200">
+            <div class="home-feature__icon">🌙</div>
+            <h3 class="home-feature__title">Private & Safe</h3>
+            <p class="home-feature__text">Your thoughts stay yours. A secure place to express without fear or judgment.</p>
+          </div>
+          <div class="home-feature animate-fade-in-up delay-400">
+            <div class="home-feature__icon">📖</div>
+            <h3 class="home-feature__title">Beautiful Archive</h3>
+            <p class="home-feature__text">Revisit your memories in a beautifully organized timeline of your life's moments.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-quote" aria-label="Inspiration">
+      <div class="container">
+        <p class="home-quote__text animate-fade-in-up">"She wrote her fears away and made room for joy."</p>
+        <span class="home-quote__author animate-fade-in-up delay-200">— Tomato's Dairy</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="utilities/helpers.js"></script>
+  <script src="utilities/data.js"></script>
+  <script src="utilities/service.js"></script>
+  <script src="components/buttons/buttons.js"></script>
+  <script src="components/navbar/navbar.js"></script>
+  <script src="components/footer/footer.js"></script>
+  <script src="pages/home/home.js"></script>
+</body>
+</html>

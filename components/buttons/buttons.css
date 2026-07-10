@@ -1,0 +1,109 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-sm);
+  padding: 14px 32px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 3px;
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--color-teal), #4A8AC4);
+  color: white;
+  box-shadow: 0 4px 16px rgba(91, 155, 213, 0.3);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(91, 155, 213, 0.4);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1.5px solid var(--color-slate);
+}
+
+.btn--secondary:hover {
+  border-color: var(--color-teal);
+  color: var(--color-teal);
+  background: rgba(91, 155, 213, 0.06);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  padding: 10px 20px;
+}
+
+.btn--ghost:hover {
+  background: rgba(91, 155, 213, 0.08);
+  color: var(--color-text-primary);
+}
+
+.btn--large {
+  padding: 18px 44px;
+  font-size: 1.05rem;
+}
+
+.btn--small {
+  padding: 8px 20px;
+  font-size: 0.85rem;
+}
+
+.btn--icon {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: var(--radius-full);
+}
+
+.btn--icon.btn--small {
+  width: 36px;
+  height: 36px;
+}
+
+.btn--danger {
+  background: linear-gradient(135deg, var(--color-error), #C45A5A);
+  color: white;
+  box-shadow: 0 4px 16px rgba(212, 114, 114, 0.3);
+}
+
+.btn--danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(212, 114, 114, 0.4);
+}
+
+.btn-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
