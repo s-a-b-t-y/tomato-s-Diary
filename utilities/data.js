@@ -60,11 +60,11 @@ const MOOD_OPTIONS = [
 ];
 
 const MOTIVATIONAL_QUOTES = [
-    { text: 'She wrote her fears away and made room for joy.', author: "Tomato's Dairy" },
-    { text: 'Your story matters. Start writing it today.', author: "Tomato's Dairy" },
-    { text: 'Every page is a new beginning.', author: "Tomato's Dairy" },
-    { text: 'The pen is a key that unlocks rooms of the heart.', author: "Tomato's Dairy" },
-    { text: 'In the quiet of writing, we find our truest voice.', author: "Tomato's Dairy" }
+    { text: 'She wrote her fears away and made room for joy.', author: "Tomato's Diary" },
+    { text: 'Your story matters. Start writing it today.', author: "Tomato's Diary" },
+    { text: 'Every page is a new beginning.', author: "Tomato's Diary" },
+    { text: 'The pen is a key that unlocks rooms of the heart.', author: "Tomato's Diary" },
+    { text: 'In the quiet of writing, we find our truest voice.', author: "Tomato's Diary" }
 ];
 
 const FILTER_OPTIONS = {

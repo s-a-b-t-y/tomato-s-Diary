@@ -14,7 +14,7 @@ function Footer() {
         <a href="index.html" class="footer__link">Home</a>
         <a href="pages/entries/entries.html" class="footer__link">Entries</a>
       </div>
-      <span class="footer__text">© ${year} Tomato's Dairy</span>
+      <span class="footer__text">© ${year} Tomato's Diary</span>
     </div>
   `;
 

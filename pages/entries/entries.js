@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+  if (!getSession()) {
+    window.location.href = '../../Login/login.html';
+    return;
+  }
+
   const app = document.getElementById('app');
   const loadingScreen = document.getElementById('loadingScreen');
 
@@ -92,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (entries.length === 0) {
       const empty = EmptyState({
         title: 'No memories found',
-        quote: { text: 'Every great diary starts with the first page.', author: "Tomato's Dairy" },
+        quote: { text: 'Every great diary starts with the first page.', author: "Tomato's Diary" },
         buttonText: 'Write Something',
         buttonLink: '../diary/diary.html',
         illustration: 'entries'
@@ -148,4 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     if (loadingScreen) loadingScreen.classList.add('hidden');
   }, 600);
+
+  if (typeof initPageTransition === 'function') {
+    initPageTransition();
+  }
 });

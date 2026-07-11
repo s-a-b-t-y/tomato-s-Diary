@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+  if (!getSession()) {
+    window.location.href = '../../Login/login.html';
+    return;
+  }
+
   const app = document.getElementById('app');
   const loadingScreen = document.getElementById('loadingScreen');
 
@@ -136,4 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     if (loadingScreen) loadingScreen.classList.add('hidden');
   }, 600);
+
+  if (typeof initPageTransition === 'function') {
+    initPageTransition();
+  }
 });

@@ -5,34 +5,30 @@ function Navbar(activePage) {
   nav.setAttribute('aria-label', 'Main navigation');
 
   const isSubPage = window.location.pathname.includes('/pages/');
-  const homePath = isSubPage ? '../../index.html' : 'index.html';
-  const diaryPath = isSubPage ? '../diary/diary.html' : 'pages/diary/diary.html';
-  const entriesPath = isSubPage ? '../entries/entries.html' : 'pages/entries/entries.html';
+  const isLoginOrDeep = window.location.pathname.includes('/Login/');
+  const homePath = (isSubPage || isLoginOrDeep) ? '../../index.html' : 'index.html';
+  const diaryPath = (isSubPage || isLoginOrDeep) ? '../diary/diary.html' : 'pages/diary/diary.html';
+  const entriesPath = (isSubPage || isLoginOrDeep) ? '../entries/entries.html' : 'pages/entries/entries.html';
+  const loginPath = (isSubPage || isLoginOrDeep) ? '../../Login/login.html' : 'Login/login.html';
 
-  const tomatoLogo = `
-    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="18" cy="20" rx="13" ry="12" fill="#E85D4A"/>
-      <ellipse cx="18" cy="20" rx="13" ry="12" fill="url(#tomatoGrad)"/>
-      <ellipse cx="14" cy="18" rx="5" ry="7" fill="#F07060" opacity="0.4"/>
-      <path d="M15 9C15 9 16 5 18 4C20 5 21 9 21 9" stroke="#5A8C3C" stroke-width="2" stroke-linecap="round" fill="none"/>
-      <path d="M13 10C13 10 15 7 18 6C21 7 23 10 23 10" fill="#5A8C3C"/>
-      <ellipse cx="18" cy="9.5" rx="4" ry="1.5" fill="#6BA345"/>
-      <defs>
-        <radialGradient id="tomatoGrad" cx="0.35" cy="0.3" r="0.7">
-          <stop offset="0%" stop-color="#F07060" stop-opacity="0.3"/>
-          <stop offset="100%" stop-color="#D04838" stop-opacity="0.2"/>
-        </radialGradient>
-      </defs>
-    </svg>`;
+  const logoPath = (isSubPage || isLoginOrDeep) ? '../../assets/icons/Tomato-diary-favicon.png' : 'assets/icons/Tomato-diary-favicon.png';
+  const tomatoLogo = `<img src="${logoPath}" alt="Tomato's Diary Logo" class="navbar__logo-img" width="36" height="36">`;
+
+  const session = getSession();
+  const isLoggedIn = !!session;
+  const userName = isLoggedIn ? session.name : '';
+  const userInitial = isLoggedIn ? userName.charAt(0).toUpperCase() : '';
 
   nav.innerHTML = `
     <div class="container navbar__inner">
-      <a href="${homePath}" class="navbar__brand" aria-label="Tomato's Dairy Home">
-        <div class="navbar__logo">
-          ${tomatoLogo}
-        </div>
-        <span class="navbar__title">Tomato's Dairy</span>
-      </a>
+      <div class="navbar__brand-group">
+        <a href="${homePath}" class="navbar__brand" aria-label="Tomato's Diary Home">
+          <div class="navbar__logo">
+            ${tomatoLogo}
+          </div>
+          <span class="navbar__title">Tomato's Diary</span>
+        </a>
+      </div>
 
       <div class="navbar__links">
         <a href="${homePath}" class="navbar__link ${activePage === 'home' ? 'active' : ''}" data-page="home">Home</a>
@@ -44,6 +40,22 @@ function Navbar(activePage) {
           </svg>
           Write
         </a>
+        ${isLoggedIn
+          ? `<div class="navbar__user">
+               <div class="navbar__avatar" title="${userName}">${userInitial}</div>
+               <div class="navbar__user-dropdown">
+                 <div class="navbar__user-info">
+                   <span class="navbar__user-name">${userName}</span>
+                   <span class="navbar__user-email">${session.email || session.username}</span>
+                 </div>
+                 <button class="navbar__logout-btn" id="navbarLogoutBtn" type="button">
+                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                   Sign Out
+                 </button>
+               </div>
+             </div>`
+          : `<a href="${loginPath}" class="navbar__signin-btn">Sign In</a>`
+        }
       </div>
 
       <button class="navbar__mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -62,10 +74,27 @@ function Navbar(activePage) {
       <a href="${homePath}" class="navbar__mobile-link">Home</a>
       <a href="${diaryPath}" class="navbar__mobile-link">Write</a>
       <a href="${entriesPath}" class="navbar__mobile-link">Entries</a>
+      ${isLoggedIn
+        ? `<button class="navbar__mobile-link navbar__mobile-link--btn" id="mobileLogoutBtn" type="button">Sign Out</button>`
+        : `<a href="${loginPath}" class="navbar__mobile-link navbar__mobile-link--btn">Sign In</a>`
+      }
     </div>
   `;
 
   return nav;
+}
+
+function getSession() {
+  try {
+    const raw = localStorage.getItem('tomato_diary_session');
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function clearSession() {
+  localStorage.removeItem('tomato_diary_session');
 }
 
 function initNavbar() {
@@ -76,6 +105,10 @@ function initNavbar() {
   const mobileMenu = navbar.querySelector('.navbar__mobile-menu');
   const closeBtn = navbar.querySelector('.navbar__mobile-close');
   const mobileLinks = navbar.querySelectorAll('.navbar__mobile-link');
+  const logoutBtn = navbar.querySelector('#navbarLogoutBtn');
+  const mobileLogoutBtn = navbar.querySelector('#mobileLogoutBtn');
+  const avatar = navbar.querySelector('.navbar__avatar');
+  const userDropdown = navbar.querySelector('.navbar__user-dropdown');
 
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
@@ -108,4 +141,27 @@ function initNavbar() {
       });
     });
   }
+
+  if (avatar && userDropdown) {
+    avatar.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userDropdown.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!userDropdown.contains(e.target) && e.target !== avatar) {
+        userDropdown.classList.remove('open');
+      }
+    });
+  }
+
+  function handleLogout() {
+    clearSession();
+    window.location.href = window.location.pathname.includes('/pages/') || window.location.pathname.includes('/Login/')
+      ? '../../index.html'
+      : 'index.html';
+  }
+
+  if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
+  if (mobileLogoutBtn) mobileLogoutBtn.addEventListener('click', handleLogout);
 }
