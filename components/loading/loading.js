@@ -5,11 +5,11 @@ function LoadingScreen() {
   screen.setAttribute('aria-label', 'Loading');
 
   const isSubPage = window.location.pathname.includes('/pages/');
-  const logoPath = isSubPage ? '../../assets/icons/Tomato-diary-favicon.png' : 'assets/icons/Tomato-diary-favicon.png';
+  const logoPath = isSubPage ? '../../assets/icons/Logo.png' : 'assets/icons/Logo.png';
 
   screen.innerHTML = `
     <div class="loading-screen__logo-wrap">
-      <img src="${logoPath}" alt="Tomato's Diary" class="loading-screen__logo">
+      <img src="${logoPath}" alt="Cutie Pie J&I" class="loading-screen__logo">
     </div>
     <p class="loading-screen__text">
       Opening your diary

@@ -3,14 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Entries — Tomato's Diary</title>
-  <link rel="icon" type="image/png" href="../../assets/icons/Tomato-diary-favicon.png">
+  <title>Past Notes — Cutie Pie J&I</title>
+  <link rel="icon" type="image/png" href="../../assets/icons/Logo.png">
+  <script>
+    (function() {
+      var t = localStorage.getItem('tomato_diary_theme');
+      if (t === 'pink') document.documentElement.setAttribute('data-theme', 'pink');
+    })();
+  </script>
   <link rel="stylesheet" href="../../styles/shared/variables.css">
   <link rel="stylesheet" href="../../styles/shared/base.css">
   <link rel="stylesheet" href="../../styles/shared/animations.css">
   <link rel="stylesheet" href="../../styles/shared/utilities.css">
   <link rel="stylesheet" href="../../components/navbar/navbar.css">
-  <link rel="stylesheet" href="../../components/footer/footer.css">
+
   <link rel="stylesheet" href="../../components/buttons/buttons.css">
   <link rel="stylesheet" href="../../components/cards/diary-card.css">
   <link rel="stylesheet" href="../../components/empty-state/empty-state.css">
@@ -48,11 +54,11 @@
             <span class="form-search__icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             </span>
-            <input type="search" class="form-search__input" id="searchInput" placeholder="Search your memories..." aria-label="Search entries">
+            <input type="search" class="form-search__input" id="searchInput" placeholder="Search your memories..." aria-label="Search past notes">
           </div>
         </div>
         <div class="entries-page__filters">
-          <select class="entries-page__sort-select" id="sortSelect" aria-label="Sort entries">
+          <select class="entries-page__sort-select" id="sortSelect" aria-label="Sort past notes">
             <option value="newest">Newest First</option>
             <option value="oldest">Oldest First</option>
             <option value="title">Title A-Z</option>
@@ -77,7 +83,7 @@
   <script src="../../utilities/service.js"></script>
   <script src="../../components/buttons/buttons.js"></script>
   <script src="../../components/navbar/navbar.js"></script>
-  <script src="../../components/footer/footer.js"></script>
+
   <script src="../../components/page-transition/page-transition.js"></script>
   <script src="../../components/cards/diary-card.js"></script>
   <script src="../../components/empty-state/empty-state.js"></script>

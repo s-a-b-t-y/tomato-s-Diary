@@ -23,9 +23,6 @@ function TomatoDatePicker(options = {}) {
   dropdown.className = 'date-picker-dropdown';
   dropdown.id = 'tomatoDatePicker';
 
-  const backdrop = document.createElement('div');
-  backdrop.className = 'date-picker-backdrop';
-
   function getDaysInMonth(year, month) {
     return new Date(year, month + 1, 0).getDate();
   }
@@ -108,23 +105,28 @@ function TomatoDatePicker(options = {}) {
   }
 
   function bindEvents() {
-    dropdown.querySelector('[data-nav="prev-year"]').addEventListener('click', () => {
+    dropdown.querySelector('[data-nav="prev-year"]').addEventListener('click', (e) => {
+      e.stopPropagation();
       currentDate.setFullYear(currentDate.getFullYear() - 1);
       render();
     });
-    dropdown.querySelector('[data-nav="prev-month"]').addEventListener('click', () => {
+    dropdown.querySelector('[data-nav="prev-month"]').addEventListener('click', (e) => {
+      e.stopPropagation();
       currentDate.setMonth(currentDate.getMonth() - 1);
       render();
     });
-    dropdown.querySelector('[data-nav="next-month"]').addEventListener('click', () => {
+    dropdown.querySelector('[data-nav="next-month"]').addEventListener('click', (e) => {
+      e.stopPropagation();
       currentDate.setMonth(currentDate.getMonth() + 1);
       render();
     });
-    dropdown.querySelector('[data-nav="next-year"]').addEventListener('click', () => {
+    dropdown.querySelector('[data-nav="next-year"]').addEventListener('click', (e) => {
+      e.stopPropagation();
       currentDate.setFullYear(currentDate.getFullYear() + 1);
       render();
     });
-    dropdown.querySelector('[data-action="today"]').addEventListener('click', () => {
+    dropdown.querySelector('[data-action="today"]').addEventListener('click', (e) => {
+      e.stopPropagation();
       const today = new Date();
       tempSelected = new Date(today);
       currentDate = new Date(today);
@@ -132,7 +134,8 @@ function TomatoDatePicker(options = {}) {
     });
 
     dropdown.querySelectorAll('.date-picker__day:not(.date-picker__day--other-month):not(.date-picker__day--disabled)').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
         const parts = btn.dataset.date.split('-');
         tempSelected = new Date(parts[0], parts[1] - 1, parts[2]);
         render();
@@ -144,30 +147,34 @@ function TomatoDatePicker(options = {}) {
       if (onSelect) onSelect(new Date(tempSelected));
       close();
     });
+  }
 
-    backdrop.addEventListener('click', close);
+  function handleOutsideClick(e) {
+    if (!dropdown.contains(e.target) && !anchor.contains(e.target)) {
+      close();
+    }
   }
 
   function close() {
+    document.removeEventListener('click', handleOutsideClick);
     dropdown.classList.remove('active');
-    backdrop.remove();
     setTimeout(() => dropdown.remove(), 300);
   }
 
   function removeExistingPicker() {
     const existing = document.getElementById('tomatoDatePicker');
     if (existing) existing.remove();
-    const existingBackdrop = document.querySelector('.date-picker-backdrop');
-    if (existingBackdrop) existingBackdrop.remove();
   }
 
   anchor.appendChild(dropdown);
-  document.body.appendChild(backdrop);
 
   render();
 
   requestAnimationFrame(() => {
     dropdown.classList.add('active');
+    setTimeout(() => {
+      document.addEventListener('click', handleOutsideClick);
+    }, 0);
   });
 
   return { close };

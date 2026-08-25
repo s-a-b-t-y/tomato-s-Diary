@@ -2,7 +2,6 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(160deg, var(--color-deep-navy) 0%, var(--color-navy) 100%);
 }
 
 .not-found__content {
@@ -52,6 +51,12 @@
   max-width: 400px;
   line-height: 1.6;
   margin-bottom: var(--size-xl);
+  padding: var(--size-lg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
 }
 
 .not-found__actions {

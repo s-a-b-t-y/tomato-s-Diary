@@ -18,11 +18,38 @@ html {
 body {
   font-family: var(--font-body);
   color: var(--color-text-primary);
-  background-color: var(--color-deep-navy);
+  background: var(--color-deep-navy);
   line-height: 1.7;
   letter-spacing: 0.01em;
   min-height: 100vh;
   overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 600px at 15% 10%, rgba(91, 155, 213, 0.08), transparent),
+    radial-gradient(ellipse 500px 500px at 85% 20%, rgba(201, 169, 110, 0.06), transparent),
+    radial-gradient(ellipse 400px 400px at 50% 80%, rgba(139, 163, 204, 0.05), transparent),
+    radial-gradient(ellipse 300px 300px at 80% 70%, rgba(196, 132, 142, 0.04), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="pink"] body::before {
+  background:
+    radial-gradient(ellipse 600px 600px at 15% 10%, rgba(199, 91, 122, 0.07), transparent),
+    radial-gradient(ellipse 500px 500px at 85% 20%, rgba(184, 134, 11, 0.05), transparent),
+    radial-gradient(ellipse 400px 400px at 50% 80%, rgba(176, 122, 154, 0.04), transparent),
+    radial-gradient(ellipse 300px 300px at 80% 70%, rgba(196, 112, 128, 0.03), transparent);
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -76,8 +103,13 @@ ul, ol {
 }
 
 ::selection {
-  background-color: var(--color-teal);
-  color: var(--color-deep-navy);
+  background-color: rgba(91, 155, 213, 0.4);
+  color: var(--color-text-primary);
+}
+
+[data-theme="pink"] ::selection {
+  background-color: rgba(199, 91, 122, 0.3);
+  color: var(--color-text-primary);
 }
 
 ::-webkit-scrollbar {
@@ -85,16 +117,24 @@ ul, ol {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-deep-navy);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-slate);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-mist);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+[data-theme="pink"] ::-webkit-scrollbar-thumb {
+  background: rgba(60, 30, 40, 0.1);
+}
+
+[data-theme="pink"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(60, 30, 40, 0.18);
 }
 
 .container {
@@ -120,7 +160,7 @@ ul, ol {
 
 .page__content {
   flex: 1;
-  padding-top: 80px;
+  padding-top: 100px;
 }
 
 .sr-only {

@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tomato's Diary — Your Private World</title>
-  <meta name="description" content="A peaceful, elegant digital diary — Tomato's Diary. Your thoughts find a beautiful home.">
-  <link rel="icon" type="image/png" href="assets/icons/Tomato-diary-favicon.png">
+  <title>Cutie Pie J&I</title>
+  <meta name="description" content="A peaceful, elegant digital diary — Cutie Pie J&I. Your thoughts find a beautiful home.">
+  <link rel="icon" type="image/png" href="assets/icons/Logo.png">
+  <script>
+    (function() {
+      var t = localStorage.getItem('tomato_diary_theme');
+      if (t === 'pink') document.documentElement.setAttribute('data-theme', 'pink');
+    })();
+  </script>
   <link rel="stylesheet" href="styles/shared/variables.css">
   <link rel="stylesheet" href="styles/shared/base.css">
   <link rel="stylesheet" href="styles/shared/animations.css">
   <link rel="stylesheet" href="styles/shared/utilities.css">
   <link rel="stylesheet" href="components/navbar/navbar.css">
-  <link rel="stylesheet" href="components/footer/footer.css">
+
   <link rel="stylesheet" href="components/buttons/buttons.css">
   <link rel="stylesheet" href="components/loading/loading.css">
   <link rel="stylesheet" href="components/page-transition/page-transition.css">
@@ -44,12 +50,16 @@
 
       <div class="home-hero__content">
         <div class="home-hero__text">
-          <span class="home-hero__badge">✦ A quiet place for your thoughts</span>
+          <span class="home-hero__badge">✦ A small gift for my CUTIE PIE</span>
           <h1 class="home-hero__title">
-            Your thoughts deserve a <em>beautiful</em> home
+            The best and cutest person is <em>ONLY YOU</em>
           </h1>
           <p class="home-hero__subtitle">
-            Tomato's Diary is a peaceful space where your words find warmth, your feelings find safety, and every memory finds its place.
+            You are the poem the universe wrote,<br>
+            with stardust ink and a heart of gold.<br>
+            Every word you write, every dream you keep,<br>
+            turns your quiet world into something sweet.<br>
+            So write, dear soul — this space is yours to keep.
           </p>
           <div class="home-hero__actions">
             <a href="pages/diary/diary.html" class="btn btn--primary btn--large">
@@ -57,7 +67,7 @@
               Start Writing
             </a>
             <a href="pages/entries/entries.html" class="btn btn--secondary btn--large">
-              Read Entries
+              Read Past Notes
             </a>
           </div>
         </div>
@@ -86,34 +96,10 @@
       </div>
     </section>
 
-    <section class="home-features" aria-label="Features">
-      <div class="container home-features__inner">
-        <h2 class="home-features__title">A diary that feels like home</h2>
-        <p class="home-features__subtitle">Every detail crafted to make your writing experience magical</p>
-        <div class="home-features__grid">
-          <div class="home-feature animate-fade-in-up">
-            <div class="home-feature__icon">✍️</div>
-            <h3 class="home-feature__title">Beautiful Writing</h3>
-            <p class="home-feature__text">A distraction-free space with elegant typography that makes every word feel special.</p>
-          </div>
-          <div class="home-feature animate-fade-in-up delay-200">
-            <div class="home-feature__icon">🌙</div>
-            <h3 class="home-feature__title">Private & Safe</h3>
-            <p class="home-feature__text">Your thoughts stay yours. A secure place to express without fear or judgment.</p>
-          </div>
-          <div class="home-feature animate-fade-in-up delay-400">
-            <div class="home-feature__icon">📖</div>
-            <h3 class="home-feature__title">Beautiful Archive</h3>
-            <p class="home-feature__text">Revisit your memories in a beautifully organized timeline of your life's moments.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="home-quote" aria-label="Inspiration">
       <div class="container">
-        <p class="home-quote__text animate-fade-in-up">"She wrote her fears away and made room for joy."</p>
-        <span class="home-quote__author animate-fade-in-up delay-200">— Tomato's Diary</span>
+        <p class="home-quote__text animate-fade-in-up">"Don't think, I'm here on the side of your forever, just share everything."</p>
+        <span class="home-quote__author animate-fade-in-up delay-200">— Mohammad Sabty</span>
       </div>
     </section>
   </main>
@@ -123,7 +109,7 @@
   <script src="utilities/service.js"></script>
   <script src="components/buttons/buttons.js"></script>
   <script src="components/navbar/navbar.js"></script>
-  <script src="components/footer/footer.js"></script>
+
   <script src="components/page-transition/page-transition.js"></script>
   <script src="pages/home/home.js"></script>
 </body>

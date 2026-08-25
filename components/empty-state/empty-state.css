@@ -36,6 +36,12 @@
   max-width: 400px;
   margin-bottom: var(--size-lg);
   line-height: 1.6;
+  padding: var(--size-lg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
 }
 
 .empty-state__quote-author {

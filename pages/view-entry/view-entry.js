@@ -10,8 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const navbar = Navbar('entries');
   app.insertBefore(navbar, app.firstChild);
 
-  const footer = Footer();
-  app.appendChild(footer);
 
   initNavbar();
 
@@ -67,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setTimeout(() => {
     if (loadingScreen) loadingScreen.classList.add('hidden');
-  }, 600);
+  }, 300);
 
   if (typeof initPageTransition === 'function') {
     initPageTransition();

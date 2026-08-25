@@ -3,14 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Write — Tomato's Diary</title>
-  <link rel="icon" type="image/png" href="../../assets/icons/Tomato-diary-favicon.png">
+  <title>Write — Cutie Pie J&I</title>
+  <link rel="icon" type="image/png" href="../../assets/icons/Logo.png">
+  <script>
+    (function() {
+      var t = localStorage.getItem('tomato_diary_theme');
+      if (t === 'pink') document.documentElement.setAttribute('data-theme', 'pink');
+    })();
+  </script>
   <link rel="stylesheet" href="../../styles/shared/variables.css">
   <link rel="stylesheet" href="../../styles/shared/base.css">
   <link rel="stylesheet" href="../../styles/shared/animations.css">
   <link rel="stylesheet" href="../../styles/shared/utilities.css">
   <link rel="stylesheet" href="../../components/navbar/navbar.css">
-  <link rel="stylesheet" href="../../components/footer/footer.css">
+
   <link rel="stylesheet" href="../../components/buttons/buttons.css">
   <link rel="stylesheet" href="../../components/mood-selector/mood-selector.css">
   <link rel="stylesheet" href="../../components/toast/toast.css">
@@ -41,34 +47,46 @@
     <div class="container diary-page__inner">
       <div class="diary-page__header">
         <div class="diary-page__date-section">
-          <span class="diary-page__date-display" id="diaryDateDisplay"></span>
           <button class="diary-page__date-change" id="dateChangeBtn" type="button" aria-label="Change date">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             Change Date
           </button>
+          <span class="diary-page__date-display" id="diaryDateDisplay"></span>
         </div>
         <input
           type="text"
           class="diary-page__title-input"
           id="diaryTitle"
-          placeholder="Give this moment a title..."
+          placeholder="Enter Title Cutie..."
           aria-label="Entry title"
           maxlength="120"
         >
       </div>
 
       <div class="diary-page__mood-section">
-        <p class="diary-page__mood-label">How are you feeling?</p>
         <div id="moodSelector"></div>
       </div>
 
       <div class="diary-page__writing-area">
-        <textarea
-          class="diary-page__textarea"
-          id="diaryContent"
-          placeholder="Write your thoughts here... Let them flow freely."
-          aria-label="Write your diary entry"
-        ></textarea>
+        <div class="diary-page__book">
+          <div class="diary-page__page-wrapper" id="pageWrapper">
+            <div class="diary-page__page diary-page__page--empty" id="pageDisplay" data-placeholder="Write your thoughts here... Let them flow freely."></div>
+          </div>
+          <textarea
+            class="diary-page__textarea"
+            id="diaryContent"
+            aria-label="Write your diary entry"
+          ></textarea>
+        </div>
+        <div class="diary-page__page-nav" id="pageNav">
+          <button class="diary-page__page-btn" id="prevPageBtn" type="button" disabled aria-label="Previous page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <span class="diary-page__page-info" id="pageInfo">Page 1 of 1</span>
+          <button class="diary-page__page-btn" id="nextPageBtn" type="button" aria-label="Next page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
       </div>
 
       <div class="diary-page__stats">
@@ -102,7 +120,7 @@
   <script src="../../utilities/service.js"></script>
   <script src="../../components/buttons/buttons.js"></script>
   <script src="../../components/navbar/navbar.js"></script>
-  <script src="../../components/footer/footer.js"></script>
+
   <script src="../../components/page-transition/page-transition.js"></script>
   <script src="../../components/mood-selector/mood-selector.js"></script>
   <script src="../../components/toast/toast.js"></script>

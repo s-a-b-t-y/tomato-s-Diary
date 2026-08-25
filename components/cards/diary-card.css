@@ -1,8 +1,10 @@
 .diary-card {
-  background: var(--color-dark-blue);
+  background: var(--glass-bg-card);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
   border-radius: var(--radius-lg);
   padding: var(--size-lg);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--glass-border);
   transition: all var(--transition-smooth);
   cursor: pointer;
   position: relative;
@@ -22,9 +24,10 @@
 }
 
 .diary-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-soft-blue);
+  transform: translateY(-6px);
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-strong);
+  box-shadow: var(--glass-shadow-lg), 0 0 40px rgba(91, 155, 213, 0.08);
 }
 
 .diary-card:hover::before {
@@ -71,7 +74,7 @@
   align-items: center;
   justify-content: space-between;
   padding-top: var(--size-md);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--glass-border);
 }
 
 .diary-card__reading-time {

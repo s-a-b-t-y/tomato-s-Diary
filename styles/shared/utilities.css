@@ -71,24 +71,6 @@
 .color-gold { color: var(--color-gold); }
 .color-purple { color: var(--color-lavender); }
 
-.bg-navy { background-color: var(--color-navy); }
-.bg-dark-blue { background-color: var(--color-dark-blue); }
-.bg-medium-blue { background-color: var(--color-medium-blue); }
-.bg-teal { background-color: var(--color-teal); }
-.bg-lavender { background-color: var(--color-lavender); }
-
-.gradient-warm {
-  background: linear-gradient(135deg, var(--color-deep-navy) 0%, var(--color-navy) 50%, var(--color-dark-blue) 100%);
-}
-
-.gradient-rose {
-  background: linear-gradient(135deg, var(--color-dark-blue) 0%, var(--color-medium-blue) 100%);
-}
-
-.gradient-paper {
-  background: linear-gradient(180deg, var(--color-dark-blue) 0%, var(--color-navy) 100%);
-}
-
 .font-light { font-weight: 300; }
 .font-normal { font-weight: 400; }
 .font-medium { font-weight: 500; }
@@ -133,4 +115,37 @@
   clip: rect(0, 0, 0, 0) !important;
   white-space: nowrap !important;
   border: 0 !important;
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-strong {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur-strong));
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+  border: 1px solid var(--glass-border-strong);
+  box-shadow: var(--glass-shadow-lg);
+}
+
+.glass-card {
+  background: var(--glass-bg-card);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-glow {
+  box-shadow: var(--glass-shadow), var(--glass-glow-teal);
+}
+
+.glass-glow-gold {
+  box-shadow: var(--glass-shadow), var(--glass-glow-gold);
 }

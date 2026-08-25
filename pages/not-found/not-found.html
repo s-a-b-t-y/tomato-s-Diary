@@ -3,8 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page Not Found — Tomato's Diary</title>
-  <link rel="icon" type="image/png" href="../../assets/icons/Tomato-diary-favicon.png">
+  <title>Page Not Found — Cutie Pie J&I</title>
+  <link rel="icon" type="image/png" href="../../assets/icons/Logo.png">
+  <script>
+    (function() {
+      var t = localStorage.getItem('tomato_diary_theme');
+      if (t === 'pink') document.documentElement.setAttribute('data-theme', 'pink');
+    })();
+  </script>
   <link rel="stylesheet" href="../../styles/shared/variables.css">
   <link rel="stylesheet" href="../../styles/shared/base.css">
   <link rel="stylesheet" href="../../styles/shared/animations.css">

@@ -3,14 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>View Entry — Tomato's Diary</title>
-  <link rel="icon" type="image/png" href="../../assets/icons/Tomato-diary-favicon.png">
+  <title>View Entry — Cutie Pie J&I</title>
+  <link rel="icon" type="image/png" href="../../assets/icons/Logo.png">
+  <script>
+    (function() {
+      var t = localStorage.getItem('tomato_diary_theme');
+      if (t === 'pink') document.documentElement.setAttribute('data-theme', 'pink');
+    })();
+  </script>
   <link rel="stylesheet" href="../../styles/shared/variables.css">
   <link rel="stylesheet" href="../../styles/shared/base.css">
   <link rel="stylesheet" href="../../styles/shared/animations.css">
   <link rel="stylesheet" href="../../styles/shared/utilities.css">
   <link rel="stylesheet" href="../../components/navbar/navbar.css">
-  <link rel="stylesheet" href="../../components/footer/footer.css">
+
   <link rel="stylesheet" href="../../components/buttons/buttons.css">
   <link rel="stylesheet" href="../../components/toast/toast.css">
   <link rel="stylesheet" href="../../components/modals/modal.css">
@@ -39,7 +45,7 @@
     <div class="container view-entry__inner">
       <a href="../entries/entries.html" class="view-entry__back">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        Back to entries
+        Back to Past Notes
       </a>
 
       <article class="view-entry__paper animate-diary-open" id="entryContent">
@@ -78,7 +84,7 @@
   <script src="../../utilities/service.js"></script>
   <script src="../../components/buttons/buttons.js"></script>
   <script src="../../components/navbar/navbar.js"></script>
-  <script src="../../components/footer/footer.js"></script>
+
   <script src="../../components/page-transition/page-transition.js"></script>
   <script src="../../components/toast/toast.js"></script>
   <script src="../../components/modals/modal.js"></script>

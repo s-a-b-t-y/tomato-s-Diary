@@ -12,9 +12,9 @@ function Footer() {
       </div>
       <div class="footer__links">
         <a href="index.html" class="footer__link">Home</a>
-        <a href="pages/entries/entries.html" class="footer__link">Entries</a>
+        <a href="pages/entries/entries.html" class="footer__link">Past Notes</a>
       </div>
-      <span class="footer__text">© ${year} Tomato's Diary</span>
+      <span class="footer__text">© ${year} Cutie Pie J&I</span>
     </div>
   `;
 

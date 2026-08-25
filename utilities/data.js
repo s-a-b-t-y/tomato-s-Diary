@@ -56,15 +56,17 @@ const MOOD_OPTIONS = [
   { value: 'anxious', emoji: '😰', label: 'Anxious' },
   { value: 'peaceful', emoji: '🕊️', label: 'Peaceful' },
   { value: 'loving', emoji: '🥰', label: 'Loving' },
-  { value: 'nostalgic', emoji: '🥺', label: 'Nostalgic' }
+  { value: 'nostalgic', emoji: '🥺', label: 'Nostalgic' },
+  { value: 'confused', emoji: '😵‍💫', label: 'Confused' },
+  { value: 'not-sure', emoji: '🤔', label: 'Not Sure' }
 ];
 
 const MOTIVATIONAL_QUOTES = [
-    { text: 'She wrote her fears away and made room for joy.', author: "Tomato's Diary" },
-    { text: 'Your story matters. Start writing it today.', author: "Tomato's Diary" },
-    { text: 'Every page is a new beginning.', author: "Tomato's Diary" },
-    { text: 'The pen is a key that unlocks rooms of the heart.', author: "Tomato's Diary" },
-    { text: 'In the quiet of writing, we find our truest voice.', author: "Tomato's Diary" }
+    { text: 'She wrote her fears away and made room for joy.', author: "Cutie Pie J&I" },
+    { text: 'Your story matters. Start writing it today.', author: "Cutie Pie J&I" },
+    { text: 'Every page is a new beginning.', author: "Cutie Pie J&I" },
+    { text: 'The pen is a key that unlocks rooms of the heart.', author: "Cutie Pie J&I" },
+    { text: 'In the quiet of writing, we find our truest voice.', author: "Cutie Pie J&I" }
 ];
 
 const FILTER_OPTIONS = {

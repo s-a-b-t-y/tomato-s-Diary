@@ -4,7 +4,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--color-overlay);
+  background: rgba(11, 20, 38, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: var(--z-modal);
   display: flex;
   align-items: center;
@@ -21,13 +23,15 @@
 }
 
 .modal {
-  background: var(--color-dark-blue);
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur-strong));
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong));
   border-radius: var(--radius-lg);
   padding: var(--size-xl);
   max-width: 480px;
   width: 100%;
-  box-shadow: var(--shadow-xl);
-  border: 1px solid var(--color-border);
+  box-shadow: var(--glass-shadow-lg);
+  border: 1px solid var(--glass-border-strong);
   transform: scale(0.9) translateY(20px);
   transition: transform var(--transition-smooth);
 }
@@ -62,7 +66,7 @@
 }
 
 .modal__close:hover {
-  background: var(--color-soft-blue);
+  background: var(--glass-bg-hover);
 }
 
 .modal__close svg {
@@ -80,4 +84,15 @@
   display: flex;
   justify-content: flex-end;
   gap: var(--size-sm);
+}
+
+/* ===== PINK THEME MODAL ===== */
+[data-theme="pink"] .modal-overlay {
+  background: rgba(253, 242, 244, 0.65);
+}
+
+[data-theme="pink"] .modal {
+  background: var(--glass-bg-strong);
+  border-color: var(--glass-border);
+  box-shadow: var(--glass-shadow-lg);
 }

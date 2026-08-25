@@ -11,8 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const navbar = Navbar('home');
   app.insertBefore(navbar, app.firstChild);
 
-  const footer = Footer();
-  app.appendChild(footer);
 
   initNavbar();
 

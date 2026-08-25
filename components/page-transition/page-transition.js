@@ -5,7 +5,7 @@ function PageTransition() {
   overlay.setAttribute('aria-label', 'Page loading');
 
   const isSubPage = window.location.pathname.includes('/pages/');
-  const logoPath = isSubPage ? '../../assets/icons/Tomato-diary-favicon.png' : 'assets/icons/Tomato-diary-favicon.png';
+  const logoPath = isSubPage ? '../../assets/icons/Logo.png' : 'assets/icons/Logo.png';
 
   overlay.innerHTML = `
     <div class="page-transition__orb page-transition__orb--1"></div>
@@ -30,11 +30,11 @@ function PageTransition() {
         <circle class="page-transition__ring-progress" cx="80" cy="80" r="70"/>
       </svg>
       <div class="page-transition__orbit-ring"></div>
-      <img src="${logoPath}" alt="Tomato's Diary" class="page-transition__logo">
+      <img src="${logoPath}" alt="Cutie Pie J&I" class="page-transition__logo">
     </div>
 
     <div class="page-transition__text-block">
-      <h2 class="page-transition__title">Tomato's Diary</h2>
+      <h2 class="page-transition__title">Cutie Pie J&I</h2>
       <p class="page-transition__tagline">A quiet place for your thoughts</p>
     </div>
 
@@ -56,8 +56,8 @@ function initPageTransition() {
   const overlay = PageTransition();
   document.body.appendChild(overlay);
 
-  const TRANSITION_MIN = 3000;
-  const TRANSITION_MAX = 5000;
+  const TRANSITION_MIN = 1000;
+  const TRANSITION_MAX = 1500;
   const progressBar = () => overlay.querySelector('#transitionProgressBar');
 
   function getTransitionDuration() {
@@ -95,7 +95,7 @@ function initPageTransition() {
       completeProgress();
       setTimeout(() => {
         window.location.href = url;
-      }, 200);
+      }, 150);
     }, duration);
   }
 
@@ -131,7 +131,7 @@ function showInitialTransition(callback) {
   const overlay = PageTransition();
   document.body.appendChild(overlay);
 
-  const duration = 3500;
+  const duration = 1000;
   const bar = overlay.querySelector('#transitionProgressBar');
 
   overlay.classList.add('active');
@@ -151,8 +151,8 @@ function showInitialTransition(callback) {
       overlay.classList.add('leaving');
       setTimeout(() => {
         if (callback) callback();
-        setTimeout(() => overlay.remove(), 800);
-      }, 600);
-    }, 250);
+        setTimeout(() => overlay.remove(), 400);
+      }, 400);
+    }, 150);
   }, duration);
 }

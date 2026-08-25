@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In — Tomato's Diary</title>
-  <meta name="description" content="Sign in to Tomato's Diary. Your private world awaits.">
-  <link rel="icon" type="image/png" href="../assets/icons/Tomato-diary-favicon.png">
+  <title>Sign In — Cutie Pie J&I</title>
+  <meta name="description" content="Sign in to Cutie Pie J&I. Your private world awaits.">
+  <link rel="icon" type="image/png" href="../assets/icons/Logo.png">
+  <script>
+    (function() {
+      var t = localStorage.getItem('tomato_diary_theme');
+      if (t === 'pink') document.documentElement.setAttribute('data-theme', 'pink');
+    })();
+  </script>
   <link rel="stylesheet" href="../styles/shared/variables.css">
   <link rel="stylesheet" href="../styles/shared/base.css">
   <link rel="stylesheet" href="../styles/shared/animations.css">
@@ -16,7 +22,7 @@
 <body>
   <div class="loading-screen" id="loadingScreen" role="status" aria-label="Loading">
     <div class="loading-screen__logo-wrap">
-      <img src="../assets/icons/Tomato-diary-favicon.png" alt="Tomato's Diary" class="loading-screen__logo">
+      <img src="../assets/icons/Logo.png" alt="Cutie Pie J&I" class="loading-screen__logo">
     </div>
     <p class="loading-screen__text">
       Opening your diary
@@ -39,10 +45,10 @@
           </div>
 
           <div class="auth-page__logo-area">
-            <img src="../assets/icons/Tomato-diary-favicon.png" alt="Tomato's Diary" class="auth-page__logo">
+            <img src="../assets/icons/Logo.png" alt="Cutie Pie J&I" class="auth-page__logo">
           </div>
 
-          <h1 class="auth-page__title">Tomato's Diary</h1>
+          <h1 class="auth-page__title">Cutie Pie J&I</h1>
           <p class="auth-page__tagline">A quiet place for your thoughts</p>
 
           <div class="auth-page__features">

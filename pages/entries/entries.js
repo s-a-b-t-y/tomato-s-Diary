@@ -10,8 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const navbar = Navbar('entries');
   app.insertBefore(navbar, app.firstChild);
 
-  const footer = Footer();
-  app.appendChild(footer);
 
   initNavbar();
 
@@ -97,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (entries.length === 0) {
       const empty = EmptyState({
         title: 'No memories found',
-        quote: { text: 'Every great diary starts with the first page.', author: "Tomato's Diary" },
+        quote: { text: 'Every great diary starts with the first page.', author: "Cutie Pie J&I" },
         buttonText: 'Write Something',
         buttonLink: '../diary/diary.html',
         illustration: 'entries'
@@ -152,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setTimeout(() => {
     if (loadingScreen) loadingScreen.classList.add('hidden');
-  }, 600);
+  }, 300);
 
   if (typeof initPageTransition === 'function') {
     initPageTransition();
