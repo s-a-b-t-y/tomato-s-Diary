@@ -14,7 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
 
   const searchInput = document.getElementById('searchInput');
-  const sortSelect = document.getElementById('sortSelect');
+  const searchWrapper = document.getElementById('searchWrapper');
+  const searchClear = document.getElementById('searchClear');
+  const searchOverlay = document.getElementById('searchOverlay');
+  const searchInputFloating = document.getElementById('searchInputFloating');
+  const searchClearFloating = document.getElementById('searchClearFloating');
+  const sortDropdown = document.getElementById('sortDropdown');
+  const sortTrigger = document.getElementById('sortTrigger');
+  const sortMenu = document.getElementById('sortMenu');
+  const sortLabel = sortTrigger.querySelector('.entries-page__sort-label');
+  const sortOptions = sortMenu.querySelectorAll('.entries-page__sort-option');
   const moodFilter = document.getElementById('moodFilter');
   const entriesGrid = document.getElementById('entriesGrid');
   const pagination = document.getElementById('pagination');
@@ -24,39 +33,184 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentSort = 'newest';
   let searchQuery = '';
 
+  const moodDropdown = document.getElementById('moodDropdown');
+  const moodTrigger = document.getElementById('moodTrigger');
+  const moodMenu = document.getElementById('moodMenu');
+  const moodTriggerEmoji = moodTrigger.querySelector('.entries-page__mood-trigger-emoji');
+  const moodTriggerLabel = moodTrigger.querySelector('.entries-page__mood-trigger-label');
+
   MOOD_OPTIONS.forEach(mood => {
-    const chip = document.createElement('button');
-    chip.className = 'entries-page__mood-chip';
-    chip.dataset.mood = mood.value;
-    chip.setAttribute('role', 'tab');
-    chip.setAttribute('aria-selected', 'false');
-    chip.innerHTML = `${mood.emoji} ${mood.label}`;
-    moodFilter.appendChild(chip);
+    const option = document.createElement('button');
+    option.className = 'entries-page__mood-option';
+    option.dataset.mood = mood.value;
+    option.setAttribute('role', 'option');
+    option.setAttribute('aria-selected', 'false');
+    option.innerHTML = `<span class="entries-page__mood-option-emoji">${mood.emoji}</span><span class="entries-page__mood-option-text">${mood.label}</span>`;
+    moodMenu.appendChild(option);
   });
 
-  const moodChips = moodFilter.querySelectorAll('.entries-page__mood-chip');
+  const moodOptions = moodMenu.querySelectorAll('.entries-page__mood-option');
 
-  moodChips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      moodChips.forEach(c => {
-        c.classList.remove('active');
-        c.setAttribute('aria-selected', 'false');
+  moodTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = moodDropdown.classList.contains('open');
+    if (isOpen) {
+      closeMoodMenu();
+    } else {
+      moodDropdown.classList.add('open');
+      moodTrigger.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  moodOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      moodOptions.forEach(o => {
+        o.classList.remove('active');
+        o.setAttribute('aria-selected', 'false');
       });
-      chip.classList.add('active');
-      chip.setAttribute('aria-selected', 'true');
-      currentMood = chip.dataset.mood;
+      option.classList.add('active');
+      option.setAttribute('aria-selected', 'true');
+      moodTriggerEmoji.textContent = option.querySelector('.entries-page__mood-option-emoji').textContent;
+      moodTriggerLabel.textContent = option.querySelector('.entries-page__mood-option-text').textContent;
+      currentMood = option.dataset.mood;
+      closeMoodMenu();
       renderEntries();
     });
   });
 
-  searchInput.addEventListener('input', debounce((e) => {
+  function closeMoodMenu() {
+    moodDropdown.classList.remove('open');
+    moodTrigger.setAttribute('aria-expanded', 'false');
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!moodDropdown.contains(e.target)) {
+      closeMoodMenu();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeMoodMenu();
+    }
+  });
+
+  function openSearchOverlay() {
+    searchOverlay.classList.add('active');
+    searchInputFloating.value = searchInput.value;
+    searchInputFloating.focus();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSearchOverlay() {
+    searchOverlay.classList.remove('active');
+    searchInput.value = searchInputFloating.value;
+    searchQuery = searchInput.value.trim().toLowerCase();
+    if (searchQuery) {
+      searchWrapper.classList.add('has-value');
+    } else {
+      searchWrapper.classList.remove('has-value');
+    }
+    renderEntries();
+    document.body.style.overflow = '';
+  }
+
+  searchInput.addEventListener('click', () => {
+    openSearchOverlay();
+  });
+
+  searchInput.addEventListener('focus', () => {
+    openSearchOverlay();
+  });
+
+  searchInputFloating.addEventListener('input', debounce((e) => {
     searchQuery = e.target.value.trim().toLowerCase();
+    searchInput.value = searchInputFloating.value;
+    if (searchQuery) {
+      searchWrapper.classList.add('has-value');
+    } else {
+      searchWrapper.classList.remove('has-value');
+    }
     renderEntries();
   }, 300));
 
-  sortSelect.addEventListener('change', (e) => {
-    currentSort = e.target.value;
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchQuery = '';
+    searchWrapper.classList.remove('has-value');
     renderEntries();
+    searchInput.focus();
+  });
+
+  searchClearFloating.addEventListener('click', () => {
+    searchInputFloating.value = '';
+    searchInput.value = '';
+    searchQuery = '';
+    searchWrapper.classList.remove('has-value');
+    renderEntries();
+    closeSearchOverlay();
+  });
+
+  searchOverlay.addEventListener('click', (e) => {
+    if (e.target === searchOverlay) {
+      closeSearchOverlay();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+      closeSearchOverlay();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      openSearchOverlay();
+    }
+  });
+
+  sortTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = sortDropdown.classList.contains('open');
+    if (isOpen) {
+      closeSortMenu();
+    } else {
+      sortDropdown.classList.add('open');
+      sortTrigger.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  sortOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      sortOptions.forEach(o => {
+        o.classList.remove('active');
+        o.setAttribute('aria-selected', 'false');
+      });
+      option.classList.add('active');
+      option.setAttribute('aria-selected', 'true');
+      sortLabel.textContent = option.textContent.trim();
+      currentSort = option.dataset.value;
+      closeSortMenu();
+      renderEntries();
+    });
+  });
+
+  function closeSortMenu() {
+    sortDropdown.classList.remove('open');
+    sortTrigger.setAttribute('aria-expanded', 'false');
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!sortDropdown.contains(e.target)) {
+      closeSortMenu();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeSortMenu();
+    }
   });
 
   function getFilteredEntries() {
@@ -88,8 +242,18 @@ document.addEventListener('DOMContentLoaded', () => {
     return entries;
   }
 
+  let isLoading = true;
+
   function renderEntries() {
     const entries = getFilteredEntries();
+
+    if (isLoading) {
+      renderSkeletons(entriesGrid, 6);
+      entriesCount.textContent = '';
+      pagination.innerHTML = '';
+      return;
+    }
+
     entriesGrid.innerHTML = '';
 
     if (entries.length === 0) {
@@ -146,7 +310,10 @@ document.addEventListener('DOMContentLoaded', () => {
     pagination.appendChild(nextBtn);
   }
 
-  renderEntries();
+  setTimeout(() => {
+    isLoading = false;
+    renderEntries();
+  }, 800);
 
   setTimeout(() => {
     if (loadingScreen) loadingScreen.classList.add('hidden');

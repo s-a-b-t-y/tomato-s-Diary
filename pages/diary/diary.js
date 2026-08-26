@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     await DiaryService.saveDiary(entry);
 
-    showToast('Your entry has been saved beautifully', 'success');
+    showSaveSuccess();
 
     setTimeout(() => {
       titleInput.value = '';
@@ -298,4 +298,32 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof initPageTransition === 'function') {
     initPageTransition();
   }
+
+  function showSaveSuccess() {
+    const overlay = document.createElement('div');
+    overlay.className = 'save-success-overlay';
+    overlay.innerHTML = `
+      <div class="save-success">
+        <div class="save-success__circle">
+          <div class="save-success__glow"></div>
+          <svg class="save-success__check" viewBox="0 0 52 52">
+            <circle cx="26" cy="26" r="25"/>
+            <path d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+          </svg>
+        </div>
+        <span class="save-success__emoji">❤️</span>
+        <span class="save-success__text">Done!</span>
+        <span class="save-success__subtext">Your entry has been saved beautifully</span>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+    requestAnimationFrame(() => overlay.classList.add('active'));
+
+    setTimeout(() => {
+      overlay.classList.remove('active');
+      setTimeout(() => overlay.remove(), 400);
+    }, 2200);
+  }
+
 });

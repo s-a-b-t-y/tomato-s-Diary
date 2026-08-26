@@ -31,75 +31,22 @@
   </div>
 
   <main class="auth-page" id="app">
-    <div class="auth-page__left">
-      <div class="auth-page__brand">
-        <a href="../index.html" class="auth-page__back" aria-label="Back to home">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-          Back to Home
-        </a>
 
-        <div class="auth-page__hero">
-          <div class="auth-page__hero-bg">
-            <div class="auth-page__circle auth-page__circle--1"></div>
-            <div class="auth-page__circle auth-page__circle--2"></div>
-          </div>
-
-          <div class="auth-page__logo-area">
-            <img src="../assets/icons/Logo.png" alt="Cutie Pie J&I" class="auth-page__logo">
-          </div>
-
-          <h1 class="auth-page__title">Cutie Pie J&I</h1>
-          <p class="auth-page__tagline">A quiet place for your thoughts</p>
-
-          <div class="auth-page__features">
-            <div class="auth-page__feature">
-              <span class="auth-page__feature-icon">✍️</span>
-              <span class="auth-page__feature-text">Beautiful Writing</span>
-            </div>
-            <div class="auth-page__feature">
-              <span class="auth-page__feature-icon">🔒</span>
-              <span class="auth-page__feature-text">Private & Secure</span>
-            </div>
-            <div class="auth-page__feature">
-              <span class="auth-page__feature-icon">📖</span>
-              <span class="auth-page__feature-text">Beautiful Archive</span>
-            </div>
-          </div>
-
-          <p class="auth-page__quote">"She wrote her fears away and made room for joy."</p>
-        </div>
-      </div>
-    </div>
 
     <div class="auth-page__right">
       <div class="auth-card" id="authCard">
+        <div class="auth-card__toggle" id="authToggle" role="tablist" aria-label="Switch between login and signup">
+          <button class="auth-card__toggle-btn active" id="toggleLogin" role="tab" aria-selected="false" type="button">Log In</button>
+          <button class="auth-card__toggle-btn" id="toggleSignup" role="tab" aria-selected="true" type="button">Sign Up</button>
+          <span class="auth-card__toggle-slider"></span>
+        </div>
+        <p class="auth-card__new-user" id="newUserMsg">New here? <button type="button" class="auth-card__new-user-btn" id="goSignup">Create an account</button></p>
         <div class="auth-card__header">
           <h2 class="auth-card__title" id="authTitle">Welcome back</h2>
           <p class="auth-card__subtitle" id="authSubtitle">Sign in to continue your journey</p>
         </div>
 
-        <div class="auth-card__social">
-          <button class="auth-social-btn auth-social-btn--google" id="googleBtn" type="button">
-            <svg viewBox="0 0 24 24" width="20" height="20">
-              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
-              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-            </svg>
-            <span>Continue with Google</span>
-          </button>
 
-          <button class="auth-social-btn auth-social-btn--facebook" id="facebookBtn" type="button">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="#1877F2">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
-            <span>Continue with Facebook</span>
-          </button>
-        </div>
-
-        <div class="auth-card__divider">
-          <span>or</span>
-        </div>
 
         <form class="auth-form" id="authForm" novalidate>
           <div class="auth-form__group" id="nameGroup" style="display: none;">
@@ -151,6 +98,36 @@
             <span class="auth-form__error" id="confirmError"></span>
           </div>
 
+          <div class="auth-form__group" id="securityGroup" style="display: none;">
+            <label class="auth-form__label">Security Question</label>
+            <div class="sq-dropdown" id="sqDropdown">
+              <button class="sq-dropdown__trigger" id="sqTrigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                <svg class="sq-dropdown__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span class="sq-dropdown__label" id="sqLabel">Choose a security question</span>
+                <svg class="sq-dropdown__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="sq-dropdown__menu" id="sqMenu" role="listbox" aria-label="Security questions">
+                <button class="sq-dropdown__option" data-value="What is your pet's name?" role="option">What is your pet's name?</button>
+                <button class="sq-dropdown__option" data-value="What city were you born in?" role="option">What city were you born in?</button>
+                <button class="sq-dropdown__option" data-value="What is your favorite food?" role="option">What is your favorite food?</button>
+                <button class="sq-dropdown__option" data-value="What is your mother's maiden name?" role="option">What is your mother's maiden name?</button>
+                <button class="sq-dropdown__option" data-value="What was the name of your first school?" role="option">What was the name of your first school?</button>
+                <button class="sq-dropdown__option" data-value="What is your favorite movie?" role="option">What is your favorite movie?</button>
+              </div>
+            </div>
+            <input type="hidden" id="authSecurityQuestion" value="">
+            <span class="auth-form__error" id="securityQuestionError"></span>
+          </div>
+
+          <div class="auth-form__group" id="securityAnswerGroup" style="display: none;">
+            <label class="auth-form__label" for="authSecurityAnswer">Your Answer</label>
+            <div class="auth-form__input-wrap">
+              <svg class="auth-form__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <input type="text" class="auth-form__input" id="authSecurityAnswer" placeholder="Your answer" autocomplete="off">
+            </div>
+            <span class="auth-form__error" id="securityAnswerError"></span>
+          </div>
+
           <div class="auth-form__options" id="loginOptions">
             <label class="auth-form__check">
               <input type="checkbox" id="rememberMe">
@@ -168,10 +145,7 @@
           </button>
         </form>
 
-        <p class="auth-card__switch">
-          <span id="switchText">Don't have an account?</span>
-          <button type="button" class="auth-card__switch-btn" id="switchBtn">Sign Up</button>
-        </p>
+
 
         <div class="auth-card__guest">
           <div class="auth-card__guest-divider">
@@ -179,12 +153,122 @@
           </div>
           <button type="button" class="auth-card__guest-btn" id="guestBtn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            Continue as Guest
+            View as Guest
           </button>
         </div>
       </div>
     </div>
   </main>
+
+  <!-- Forgot Password Modal -->
+  <div class="fp-modal" id="fpModal">
+    <div class="fp-modal__overlay" id="fpOverlay"></div>
+    <div class="fp-modal__content">
+      <div class="fp-modal__header">
+        <h3 class="fp-modal__title" id="fpTitle">Reset Password</h3>
+        <button class="fp-modal__close" id="fpClose" type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="fp-modal__steps">
+        <div class="fp-modal__step active" data-step="1">
+          <div class="fp-modal__step-dot active">1</div>
+          <span class="fp-modal__step-label">Find Account</span>
+        </div>
+        <div class="fp-modal__step-line"></div>
+        <div class="fp-modal__step" data-step="2">
+          <div class="fp-modal__step-dot">2</div>
+          <span class="fp-modal__step-label">Verify</span>
+        </div>
+        <div class="fp-modal__step-line"></div>
+        <div class="fp-modal__step" data-step="3">
+          <div class="fp-modal__step-dot">3</div>
+          <span class="fp-modal__step-label">Reset</span>
+        </div>
+      </div>
+
+      <!-- Step 1: Enter Username -->
+      <div class="fp-modal__body fp-step active" id="fpStep1">
+        <p class="fp-modal__desc">Enter your username to find your account</p>
+        <div class="auth-form__group">
+          <label class="auth-form__label" for="fpUsername">Username</label>
+          <div class="auth-form__input-wrap">
+            <svg class="auth-form__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input type="text" class="auth-form__input" id="fpUsername" placeholder="Enter your username" autocomplete="username">
+          </div>
+          <span class="auth-form__error" id="fpUsernameError"></span>
+        </div>
+        <button class="fp-modal__btn" id="fpStep1Btn" type="button">
+          <span>Continue</span>
+          <span class="fp-modal__btn-loader"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+
+      <!-- Step 2: Answer Security Question -->
+      <div class="fp-modal__body fp-step" id="fpStep2">
+        <p class="fp-modal__desc">Answer your security question</p>
+        <div class="fp-modal__question" id="fpQuestionDisplay"></div>
+        <div class="auth-form__group">
+          <label class="auth-form__label" for="fpAnswer">Your Answer</label>
+          <div class="auth-form__input-wrap">
+            <svg class="auth-form__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <input type="text" class="auth-form__input" id="fpAnswer" placeholder="Your answer" autocomplete="off">
+          </div>
+          <span class="auth-form__error" id="fpAnswerError"></span>
+        </div>
+        <button class="fp-modal__btn" id="fpStep2Btn" type="button">
+          <span>Verify</span>
+          <span class="fp-modal__btn-loader"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+
+      <!-- Step 3: Set New Password -->
+      <div class="fp-modal__body fp-step" id="fpStep3">
+        <p class="fp-modal__desc">Create your new password</p>
+        <div class="auth-form__group">
+          <label class="auth-form__label" for="fpNewPassword">New Password</label>
+          <div class="auth-form__input-wrap">
+            <svg class="auth-form__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input type="password" class="auth-form__input" id="fpNewPassword" placeholder="New password" autocomplete="new-password">
+            <button type="button" class="auth-form__toggle-pass" id="fpTogglePass" aria-label="Show password">
+              <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+          <span class="auth-form__error" id="fpNewPassError"></span>
+        </div>
+        <div class="auth-form__group">
+          <label class="auth-form__label" for="fpConfirmPassword">Confirm Password</label>
+          <div class="auth-form__input-wrap">
+            <svg class="auth-form__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input type="password" class="auth-form__input" id="fpConfirmPassword" placeholder="Confirm new password" autocomplete="new-password">
+          </div>
+          <span class="auth-form__error" id="fpConfirmPassError"></span>
+        </div>
+        <button class="fp-modal__btn" id="fpStep3Btn" type="button">
+          <span>Reset Password</span>
+          <span class="fp-modal__btn-loader"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+
+      <!-- Success State -->
+      <div class="fp-modal__body fp-step" id="fpSuccess">
+        <div class="fp-modal__success">
+          <div class="fp-modal__success-circle">
+            <div class="fp-modal__success-glow"></div>
+            <svg class="fp-modal__success-check" viewBox="0 0 52 52">
+              <circle cx="26" cy="26" r="25"/>
+              <path d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+          </div>
+          <span class="fp-modal__success-emoji">🔐</span>
+          <h4 class="fp-modal__success-title">Password Reset!</h4>
+          <p class="fp-modal__success-text">Your password has been updated successfully</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="auth-toast" id="authToast" role="alert" aria-live="polite"></div>
 

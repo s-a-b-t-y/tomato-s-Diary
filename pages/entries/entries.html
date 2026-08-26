@@ -22,7 +22,9 @@
   <link rel="stylesheet" href="../../components/empty-state/empty-state.css">
   <link rel="stylesheet" href="../../components/loading/loading.css">
   <link rel="stylesheet" href="../../components/page-transition/page-transition.css">
+  <link rel="stylesheet" href="../../components/skeleton/skeleton.css">
   <link rel="stylesheet" href="entries.css">
+  <link rel="stylesheet" href="mood-dropdown.css">
 </head>
 <body>
   <div class="loading-screen" id="loadingScreen" role="status" aria-label="Loading">
@@ -49,25 +51,56 @@
       </div>
 
       <div class="entries-page__toolbar">
-        <div class="entries-page__search">
+        <div class="entries-page__search" id="searchWrapper">
           <div class="form-search">
-            <span class="form-search__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            </span>
             <input type="search" class="form-search__input" id="searchInput" placeholder="Search your memories..." aria-label="Search past notes">
+            <span class="form-search__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </span>
+            <button class="entries-page__search-clear" id="searchClear" type="button" aria-label="Clear search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
           </div>
         </div>
         <div class="entries-page__filters">
-          <select class="entries-page__sort-select" id="sortSelect" aria-label="Sort past notes">
-            <option value="newest">Newest First</option>
-            <option value="oldest">Oldest First</option>
-            <option value="title">Title A-Z</option>
-          </select>
+          <div class="entries-page__sort-dropdown" id="sortDropdown">
+            <button class="entries-page__sort-trigger" id="sortTrigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Sort past notes">
+              <svg class="entries-page__sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="16" y2="12"/><line x1="4" y1="18" x2="12" y2="18"/></svg>
+              <span class="entries-page__sort-label">Newest First</span>
+              <svg class="entries-page__sort-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="entries-page__sort-menu" id="sortMenu" role="listbox" aria-label="Sort options">
+              <button class="entries-page__sort-option active" data-value="newest" role="option" aria-selected="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Newest First
+              </button>
+              <button class="entries-page__sort-option" data-value="oldest" role="option" aria-selected="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 8 14"/></svg>
+                Oldest First
+              </button>
+              <button class="entries-page__sort-option" data-value="title" role="option" aria-selected="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+                Title A-Z
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="entries-page__mood-filter" id="moodFilter" role="tablist" aria-label="Filter by mood">
-        <button class="entries-page__mood-chip active" data-mood="all" role="tab" aria-selected="true">All</button>
+      <div class="entries-page__mood-filter" id="moodFilter">
+        <div class="entries-page__mood-dropdown" id="moodDropdown">
+          <button class="entries-page__mood-trigger" id="moodTrigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Filter by mood">
+            <span class="entries-page__mood-trigger-emoji">🌈</span>
+            <span class="entries-page__mood-trigger-label">All Moods</span>
+            <svg class="entries-page__mood-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="entries-page__mood-menu" id="moodMenu" role="listbox" aria-label="Mood options">
+            <button class="entries-page__mood-option active" data-mood="all" role="option" aria-selected="true">
+              <span class="entries-page__mood-option-emoji">🌈</span>
+              <span class="entries-page__mood-option-text">All Moods</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <div class="entries-page__grid" id="entriesGrid"></div>
@@ -76,7 +109,22 @@
 
       <p class="entries-page__count" id="entriesCount"></p>
     </div>
-  </main>
+  
+  <div class="entries-page__search-overlay" id="searchOverlay">
+    <div class="entries-page__search-floating">
+      <div class="form-search">
+        <input type="search" class="form-search__input" id="searchInputFloating" placeholder="Search your memories..." aria-label="Search past notes" autocomplete="off">
+        <span class="form-search__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </span>
+        <button class="entries-page__search-clear" id="searchClearFloating" type="button" aria-label="Close search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <p class="entries-page__search-hint">Press <kbd>Esc</kbd> to close &middot; <kbd>Ctrl+K</kbd> to open</p>
+    </div>
+  </div>
+</main>
 
   <script src="../../utilities/helpers.js"></script>
   <script src="../../utilities/data.js"></script>
@@ -87,6 +135,7 @@
   <script src="../../components/page-transition/page-transition.js"></script>
   <script src="../../components/cards/diary-card.js"></script>
   <script src="../../components/empty-state/empty-state.js"></script>
+  <script src="../../components/skeleton/skeleton.js"></script>
   <script src="entries.js"></script>
 </body>
 </html>
