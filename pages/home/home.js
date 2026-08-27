@@ -85,8 +85,48 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    favAlbum.addEventListener('mouseenter', stopAutoPlay);
-    favAlbum.addEventListener('mouseleave', startAutoPlay);
+    favAlbum.addEventListener('mouseenter', () => {
+      if (modal && !modal.classList.contains('gallery-modal--open')) {
+        stopAutoPlay();
+      }
+    });
+    
+    favAlbum.addEventListener('mouseleave', () => {
+      if (modal && !modal.classList.contains('gallery-modal--open')) {
+        startAutoPlay();
+      }
+    });
+
+    const expandBtn = document.getElementById('favExpand');
+    const modal = document.getElementById('galleryModal');
+    const closeBtn = document.getElementById('galleryClose');
+    const backdrop = document.getElementById('galleryBackdrop');
+
+    if (expandBtn && modal) {
+      expandBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        stopAutoPlay();
+        modal.classList.add('gallery-modal--open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      });
+
+      const closeModal = () => {
+        modal.classList.remove('gallery-modal--open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        startAutoPlay();
+      };
+
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (backdrop) backdrop.addEventListener('click', closeModal);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('gallery-modal--open')) {
+          closeModal();
+        }
+      });
+    }
 
     startAutoPlay();
   }
