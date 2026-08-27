@@ -1336,6 +1336,11 @@
     flex: 0;
   }
 
+  .navbar__right {
+    margin-left: auto;
+    gap: 10px;
+  }
+
   .navbar__write-btn {
     display: none;
   }
@@ -1350,7 +1355,7 @@
 
   .navbar__mobile-toggle {
     display: flex;
-    margin-left: auto;
+    margin-left: 0;
   }
 
   .page__content {
@@ -1377,6 +1382,10 @@
 
   .navbar__brand-group {
     gap: 10px;
+  }
+
+  .navbar__right {
+    gap: 8px;
   }
 
   .navbar__avatar {

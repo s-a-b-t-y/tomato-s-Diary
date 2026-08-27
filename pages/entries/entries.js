@@ -214,32 +214,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function getFilteredEntries() {
-    let entries = [...SAMPLE_ENTRIES];
-
-    if (searchQuery) {
-      entries = entries.filter(e =>
-        e.title.toLowerCase().includes(searchQuery) ||
-        e.content.toLowerCase().includes(searchQuery)
-      );
-    }
-
-    if (currentMood !== 'all') {
-      entries = entries.filter(e => e.mood === currentMood);
-    }
-
-    switch (currentSort) {
-      case 'newest':
-        entries.sort((a, b) => new Date(b.date) - new Date(a.date));
-        break;
-      case 'oldest':
-        entries.sort((a, b) => new Date(a.date) - new Date(b.date));
-        break;
-      case 'title':
-        entries.sort((a, b) => a.title.localeCompare(b.title));
-        break;
-    }
-
-    return entries;
+    return DiaryService.loadEntries({
+      search: searchQuery,
+      mood: currentMood,
+      sort: currentSort
+    });
   }
 
   let isLoading = true;

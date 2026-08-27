@@ -382,6 +382,11 @@
     font-size: 0.98rem;
   }
 
+  .diary-page__textarea {
+    padding: 24px 20px;
+    font-size: 0.98rem;
+  }
+
   .diary-page__stats {
     flex-wrap: wrap;
     gap: var(--size-md);

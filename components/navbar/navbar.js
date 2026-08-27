@@ -158,7 +158,14 @@ function Navbar(activePage) {
 function getSession() {
   try {
     const raw = localStorage.getItem('tomato_diary_session');
-    return raw ? JSON.parse(raw) : null;
+    if (!raw) return null;
+    const session = JSON.parse(raw);
+    const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+    if (Date.now() - new Date(session.loginAt).getTime() > SEVEN_DAYS) {
+      localStorage.removeItem('tomato_diary_session');
+      return null;
+    }
+    return session;
   } catch {
     return null;
   }
