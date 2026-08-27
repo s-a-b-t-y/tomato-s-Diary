@@ -302,20 +302,75 @@ document.addEventListener('DOMContentLoaded', () => {
         createdAt: new Date().toISOString()
       };
 
+      // Save to localStorage first (always works offline)
       users.push(newUser);
       saveUsers(users);
 
+      // Then save to Firestore via Firebase Auth
+      try {
+        if (window.FireDB) {
+          const result = await FireDB.signup(newUser.name, newUser.username, newUser.email, password);
+          if (result.success) {
+            newUser.id = result.uid;
+            newUser.firebaseUid = result.uid;
+            saveUsers(users);
+            console.log('[Auth] Firebase signup successful');
+          }
+        }
+      } catch (fbErr) {
+        console.warn('[Auth] Firebase signup error (localStorage still saved):', fbErr.message);
+      }
+
       createSession(newUser);
       showToast('Account created! Welcome to your diary.', 'success');
+
+      // Start auto-sync after signup
+      if (window.FireDB && newUser.firebaseUid) {
+        FireDB.startAutoSync(newUser.firebaseUid, 45000);
+      }
 
       await sleep(1000);
       window.location.href = '../index.html';
 
     } else {
-      const user = users.find(
-        u => u.username.toLowerCase() === username.toLowerCase() &&
-             atob(u.password) === password
-      );
+      // Try Firebase Auth first, fall back to localStorage
+      let user = null;
+      let firebaseUser = null;
+
+      try {
+        if (window.FireDB) {
+          const fbResult = await FireDB.login(authEmail.value.trim(), password);
+          if (fbResult.success) {
+            firebaseUser = fbResult;
+            user = {
+              id: fbResult.uid,
+              firebaseUid: fbResult.uid,
+              name: fbResult.name,
+              username: fbResult.username,
+              email: fbResult.email,
+              provider: 'local',
+              loginAt: new Date().toISOString()
+            };
+            // Sync Firebase user data to localStorage
+            const existingIdx = users.findIndex(u => u.username.toLowerCase() === fbResult.username.toLowerCase());
+            if (existingIdx > -1) {
+              users[existingIdx].firebaseUid = fbResult.uid;
+              users[existingIdx].id = fbResult.uid;
+              saveUsers(users);
+            }
+          }
+        }
+      } catch (fbErr) {
+        console.warn('[Auth] Firebase login failed, trying localStorage:', fbErr.message);
+      }
+
+      // Fallback to localStorage if Firebase didn't work
+      if (!user) {
+        user = users.find(
+          u => u.username.toLowerCase() === username.toLowerCase() &&
+               atob(u.password) === password
+        );
+      }
 
       if (!user) {
         authSubmit.classList.remove('loading');
@@ -327,6 +382,13 @@ document.addEventListener('DOMContentLoaded', () => {
       createSession(user);
       showToast('Welcome back, ' + user.name + '!', 'success');
 
+      // Start auto-sync after login
+      if (window.FireDB && user.firebaseUid) {
+        FireDB.startAutoSync(user.firebaseUid, 45000);
+      } else if (window.FireDB && user.id) {
+        FireDB.startAutoSync(user.id, 45000);
+      }
+
       await sleep(1000);
       window.location.href = '../index.html';
     }
@@ -336,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   forgotPass.addEventListener('click', (e) => {
     e.preventDefault();
-    showToast('Password reset will be available with Firebase', 'info');
+    openFpModal();
   });
 
   guestBtn.addEventListener('click', () => {
