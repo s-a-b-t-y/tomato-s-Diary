@@ -90,6 +90,9 @@
               <button class="fav-album__btn fav-album__btn--next" id="favNext" type="button" aria-label="Next photo">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
               </button>
+              <button class="fav-album__btn fav-album__btn--expand" id="favExpand" type="button" aria-label="Expand gallery" title="View Gallery">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+              </button>
             </div>
             <div class="fav-album__dots">
               <span class="fav-album__dot fav-album__dot--active"></span>
@@ -111,16 +114,62 @@
         <span class="home-quote__author animate-fade-in-up delay-200">— Mohammad Sabty</span>
       </div>
     </section>
+
+    <!-- Gallery Lightbox Modal -->
+    <div class="gallery-modal" id="galleryModal" role="dialog" aria-label="Photo Gallery" aria-hidden="true">
+      <div class="gallery-modal__backdrop" id="galleryBackdrop"></div>
+      <div class="gallery-modal__container">
+        <button class="gallery-modal__close" id="galleryClose" aria-label="Close gallery" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="gallery-modal__content">
+          <h3 class="gallery-modal__title">Our Favorite Memories</h3>
+          <p class="gallery-modal__subtitle">A collection of beautiful moments together</p>
+          <div class="gallery-modal__grid">
+            <div class="gallery-modal__item">
+              <div class="gallery-modal__img-wrap">
+                <img src="assets/images/Pic1.png" alt="Memory 1">
+              </div>
+              <span class="gallery-modal__caption">Sweet Moment 1</span>
+            </div>
+            <div class="gallery-modal__item">
+              <div class="gallery-modal__img-wrap">
+                <img src="assets/images/pic2.jpg" alt="Memory 2">
+              </div>
+              <span class="gallery-modal__caption">Sweet Moment 2</span>
+            </div>
+            <div class="gallery-modal__item">
+              <div class="gallery-modal__img-wrap">
+                <img src="assets/images/pic3.jpg" alt="Memory 3">
+              </div>
+              <span class="gallery-modal__caption">Sweet Moment 3</span>
+            </div>
+            <div class="gallery-modal__item">
+              <div class="gallery-modal__img-wrap">
+                <img src="assets/images/pic4.jpg" alt="Memory 4">
+              </div>
+              <span class="gallery-modal__caption">Sweet Moment 4</span>
+            </div>
+            <div class="gallery-modal__item">
+              <div class="gallery-modal__img-wrap">
+                <img src="assets/images/pic5.jpg" alt="Memory 5">
+              </div>
+              <span class="gallery-modal__caption">Sweet Moment 5</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
-  <script src="utilities/utilities/firebase-service.js"></script>
-  <script src="utilities/utilities/helpers.js"></script>
-  <script src="utilities/utilities/data.js"></script>
-  <script src="utilities/utilities/service.js"></script>
+  <script src="utilities/firebase-service.js"></script>
+  <script src="utilities/helpers.js"></script>
+  <script src="utilities/data.js"></script>
+  <script src="utilities/service.js"></script>
   <script src="components/buttons/buttons.js"></script>
   <script src="components/navbar/navbar.js"></script>
 

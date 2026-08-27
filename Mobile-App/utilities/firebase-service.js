@@ -44,6 +44,7 @@ const FireDB = {
       name: name,
       username: username,
       email: email,
+      password: password,
       provider: 'local',
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
@@ -216,10 +217,19 @@ const FireDB = {
       return u.username === session.username;
     });
     if (user) {
+      // Decode password and answer from local storage Base64 representation to save plain text in Firestore
+      let plainPassword = '';
+      let plainAnswer = '';
+      try { plainPassword = atob(user.password); } catch { plainPassword = user.password || ''; }
+      try { plainAnswer = atob(user.securityAnswer); } catch { plainAnswer = user.securityAnswer || ''; }
+      
       await this.saveUser(uid, {
         name: user.name,
         username: user.username,
         email: user.email,
+        password: plainPassword,
+        securityQuestion: user.securityQuestion || '',
+        securityAnswer: plainAnswer,
         provider: user.provider || 'local'
       });
     }
