@@ -5,6 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  // Start Firebase auto-sync
+  if (window.FireDB) {
+    FireDB.init().then(() => {
+      const uid = session.firebaseUid || session.id;
+      if (uid) {
+        FireDB.startAutoSync(uid, 45000);
+        DiaryService.loadFromCloud();
+      }
+    });
+  }
+
   const app = document.getElementById('app');
   const loadingScreen = document.getElementById('loadingScreen');
 
