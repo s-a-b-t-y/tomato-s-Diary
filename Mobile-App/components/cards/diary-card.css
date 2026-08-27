@@ -1,0 +1,107 @@
+.diary-card {
+  background: var(--glass-bg-card);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--radius-lg);
+  padding: var(--size-lg);
+  border: 1px solid var(--glass-border);
+  transition: all var(--transition-smooth);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.diary-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-teal), var(--color-gold), var(--color-lavender));
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.diary-card:hover {
+  transform: translateY(-6px);
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-strong);
+  box-shadow: var(--glass-shadow-lg), 0 0 40px rgba(91, 155, 213, 0.08);
+}
+
+.diary-card:hover::before {
+  opacity: 1;
+}
+
+.diary-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--size-md);
+}
+
+.diary-card__mood {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.diary-card__date {
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.diary-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--size-sm);
+  line-height: 1.4;
+}
+
+.diary-card__preview {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--size-md);
+}
+
+.diary-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--size-md);
+  border-top: 1px solid var(--glass-border);
+}
+
+.diary-card__reading-time {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.diary-card__reading-time svg {
+  width: 14px;
+  height: 14px;
+}
+
+.diary-card__mood-label {
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.diary-card--compact {
+  padding: var(--size-md);
+}
+
+.diary-card--compact .diary-card__title {
+  font-size: 1.05rem;
+}

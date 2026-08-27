@@ -14,8 +14,8 @@ service cloud.firestore {
 
     // Diary entries - users can only access their own entries
     match /entries/{entryId} {
-      allow read, write: if request.auth != null && resource.data.userId == request.auth.uid;
-      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow read, write: if request.auth != null && resource.data.uid == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.uid == request.auth.uid;
     }
 
     // Profile pictures
@@ -61,5 +61,5 @@ When a diary entry is saved, the `entries` collection auto-creates the same way.
 | Collection | Document ID | Fields |
 |-----------|-------------|--------|
 | `users` | auto-generated | uid, name, email, username, securityQuestion, createdAt |
-| `entries` | auto-generated | userId, title, content, mood, date, createdAt, updatedAt |
+| `entries` | auto-generated | uid, title, content, mood, date, createdAt, updatedAt |
 | `profiles` | user.uid | avatarUrl, displayName |
