@@ -7,8 +7,8 @@ const firebaseConfig = {
   projectId: "tomatos-diary",
   storageBucket: "tomatos-diary.firebasestorage.app",
   messagingSenderId: "579115848755",
-  appId: "1:579115848755:web:8f49c0e9a1d9befcfe3f46",
-  measurementId: "G-MQQYHL8D69"
+  appId: "1:579115848755:web:dc46bebce1ca30c1fe3f46",
+  measurementId: "G-XCC1SDEPF5"
 };
 
 const app = initializeApp(firebaseConfig);
