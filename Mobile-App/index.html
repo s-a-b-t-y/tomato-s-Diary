@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cutie Pie J&I</title>
+  <meta name="description" content="A peaceful, elegant digital diary — Cutie Pie J&I. Your thoughts find a beautiful home.">
+  <link rel="icon" type="image/png" href="assets/icons/Logo.png">
+  <link rel="manifest" href="manifest.json">
+  <script>
+    (function() {
+      var t = localStorage.getItem('tomato_diary_theme');
+      if (t === 'pink') document.documentElement.setAttribute('data-theme', 'pink');
+    })();
+  </script>
+  <link rel="stylesheet" href="styles/shared/base.css">
+  <link rel="stylesheet" href="styles/shared/animations.css">
+  <link rel="stylesheet" href="styles/shared/utilities.css">
+  <link rel="stylesheet" href="components/navbar/navbar.css">
+
+  <link rel="stylesheet" href="components/buttons/buttons.css">
+  <link rel="stylesheet" href="components/loading/loading.css">
+  <link rel="stylesheet" href="components/page-transition/page-transition.css">
+  <link rel="stylesheet" href="pages/home/home.css">
+</head>
+<body>
+  <div class="loading-screen" id="loadingScreen" role="status" aria-label="Loading">
+    <div class="loading-screen__book">
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="8" width="35" height="44" rx="4" fill="#1E2D4F" stroke="#5B9BD5" stroke-width="1.5"/>
+        <rect x="15" y="8" width="35" height="44" rx="4" fill="#162040" stroke="#5B9BD5" stroke-width="1.5"/>
+        <line x1="22" y1="20" x2="40" y2="20" stroke="#3A4F73" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="22" y1="28" x2="36" y2="28" stroke="#3A4F73" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="22" y1="36" x2="38" y2="36" stroke="#3A4F73" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <p class="loading-screen__text">
+      Opening your diary
+      <span class="loading-screen__dots"><span></span><span></span><span></span></span>
+    </p>
+  </div>
+
+  <main class="page" id="app">
+    <section class="home-hero" aria-label="Welcome">
+      <div class="home-hero__bg">
+        <div class="home-hero__circle home-hero__circle--1"></div>
+        <div class="home-hero__circle home-hero__circle--2"></div>
+        <div class="home-hero__circle home-hero__circle--3"></div>
+      </div>
+
+      <div class="home-hero__content">
+        <div class="home-hero__text">
+          <span class="home-hero__badge">✦ A small gift for my CUTIE PIE</span>
+          <h1 class="home-hero__title">
+            The best and cutest person is <em>ONLY YOU</em>
+          </h1>
+          <p class="home-hero__subtitle">
+            You are the poem the universe wrote,<br>
+            with stardust ink and a heart of gold.<br>
+            Every word you write, every dream you keep,<br>
+            turns your quiet world into something sweet.<br>
+            So write, dear soul — this space is yours to keep.
+          </p>
+          <div class="home-hero__actions">
+            <a href="pages/diary/diary.html" class="btn btn--primary btn--large">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              Start Writing
+            </a>
+            <a href="pages/entries/entries.html" class="btn btn--secondary btn--large">
+              Read Past Notes
+            </a>
+          </div>
+        </div>
+
+        <div class="home-hero__illustration">
+          <div class="fav-album" id="favAlbum">
+            <div class="fav-album__glow"></div>
+            <div class="fav-album__label">Fav Album</div>
+            <div class="fav-album__frame">
+              <div class="fav-album__slides">
+                <img src="assets/images/Pic1.png" alt="Memory 1" class="fav-album__img fav-album__img--active">
+                <img src="assets/images/pic2.jpg" alt="Memory 2" class="fav-album__img">
+                <img src="assets/images/pic3.jpg" alt="Memory 3" class="fav-album__img">
+                <img src="assets/images/pic4.jpg" alt="Memory 4" class="fav-album__img">
+                <img src="assets/images/pic5.jpg" alt="Memory 5" class="fav-album__img">
+              </div>
+              <button class="fav-album__btn fav-album__btn--prev" id="favPrev" type="button" aria-label="Previous photo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="fav-album__btn fav-album__btn--next" id="favNext" type="button" aria-label="Next photo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+            <div class="fav-album__dots">
+              <span class="fav-album__dot fav-album__dot--active"></span>
+              <span class="fav-album__dot"></span>
+              <span class="fav-album__dot"></span>
+              <span class="fav-album__dot"></span>
+              <span class="fav-album__dot"></span>
+            </div>
+            <div class="fav-album__sparkle fav-album__sparkle--1"></div>
+            <div class="fav-album__sparkle fav-album__sparkle--2"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-quote" aria-label="Inspiration">
+      <div class="container">
+        <p class="home-quote__text animate-fade-in-up">"Don't think, I'm here on the side of your forever, just share everything."</p>
+        <span class="home-quote__author animate-fade-in-up delay-200">— Mohammad Sabty</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="utilities/helpers.js"></script>
+  <script src="utilities/data.js"></script>
+  <script src="utilities/service.js"></script>
+  <script src="components/buttons/buttons.js"></script>
+  <script src="components/navbar/navbar.js"></script>
+
+  <script src="components/page-transition/page-transition.js"></script>
+  <script src="pages/home/home.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then((registration) => {
+          console.log('SW registered: ', registration);
+        })
+        .catch((registrationError) => {
+          console.log('SW registration failed: ', registrationError);
+        });
+    }
+  </script>
+</body>
+</html>

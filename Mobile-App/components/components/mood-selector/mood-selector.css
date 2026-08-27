@@ -1,0 +1,245 @@
+/* ===== MOOD TRIGGER BUTTON ===== */
+.mood-trigger {
+  display: flex;
+  justify-content: center;
+}
+
+.mood-trigger__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--glass-bg-card);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+}
+
+.mood-trigger__btn:hover {
+  border-color: rgba(91, 155, 213, 0.3);
+  background: rgba(91, 155, 213, 0.08);
+  box-shadow: 0 0 20px rgba(91, 155, 213, 0.06);
+}
+
+.mood-trigger__emoji {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.mood-trigger__text {
+  font-family: var(--font-accent);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+.mood-trigger__arrow {
+  width: 14px;
+  height: 14px;
+  color: var(--color-text-muted);
+  transition: transform var(--transition-smooth);
+}
+
+.mood-trigger__btn:hover .mood-trigger__arrow {
+  transform: translateY(1px);
+  color: var(--color-teal);
+}
+
+/* ===== MOOD MODAL ===== */
+.mood-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(11, 20, 38, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--size-lg);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+
+.mood-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mood-modal {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur-strong));
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+  border-radius: var(--radius-xl);
+  padding: var(--size-lg) var(--size-xl);
+  max-width: 400px;
+  width: 100%;
+  box-shadow: var(--glass-shadow-lg);
+  border: 1px solid var(--glass-border-strong);
+  transform: scale(0.92);
+  filter: blur(6px);
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mood-modal-overlay.active .mood-modal {
+  transform: scale(1);
+  filter: blur(0);
+}
+
+.mood-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--size-xl);
+}
+
+.mood-modal__title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.mood-modal__close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  transition: all var(--transition-base);
+}
+
+.mood-modal__close:hover {
+  background: var(--glass-bg-hover);
+  color: var(--color-text-primary);
+}
+
+.mood-modal__close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.mood-modal__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.mood-modal__option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 4px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background: var(--glass-bg);
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  overflow: hidden;
+}
+
+.mood-modal__option:hover {
+  background: rgba(91, 155, 213, 0.1);
+  border-color: rgba(91, 155, 213, 0.2);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(91, 155, 213, 0.08);
+}
+
+.mood-modal__option--active {
+  border-color: rgba(201, 169, 110, 0.4);
+  background: rgba(201, 169, 110, 0.1);
+  box-shadow: 0 0 12px rgba(201, 169, 110, 0.1);
+}
+
+.mood-modal__option--active:hover {
+  border-color: rgba(201, 169, 110, 0.5);
+  background: rgba(201, 169, 110, 0.15);
+}
+
+.mood-modal__emoji {
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: transform var(--transition-smooth);
+}
+
+.mood-modal__option:hover .mood-modal__emoji {
+  transform: scale(1.1);
+}
+
+.mood-modal__label {
+  font-size: 0.58rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.mood-modal__option--active .mood-modal__label {
+  color: var(--color-gold);
+}
+
+/* ===== PINK THEME ===== */
+[data-theme="pink"] .mood-modal-overlay {
+  background: rgba(253, 242, 244, 0.65);
+}
+
+[data-theme="pink"] .mood-modal {
+  background: var(--glass-bg-strong);
+  border-color: var(--glass-border);
+  box-shadow: var(--glass-shadow-lg);
+}
+
+[data-theme="pink"] .mood-trigger__btn:hover {
+  border-color: rgba(199, 91, 122, 0.3);
+  background: rgba(199, 91, 122, 0.08);
+}
+
+[data-theme="pink"] .mood-modal__option:hover {
+  background: rgba(199, 91, 122, 0.1);
+  border-color: rgba(199, 91, 122, 0.2);
+  box-shadow: 0 8px 20px rgba(199, 91, 122, 0.08);
+}
+
+[data-theme="pink"] .mood-modal__option--active {
+  border-color: rgba(199, 91, 122, 0.4);
+  background: rgba(199, 91, 122, 0.12);
+}
+
+@media (max-width: 480px) {
+  .mood-modal {
+    padding: var(--size-md);
+    margin: 0 var(--size-sm);
+    max-width: 340px;
+  }
+
+  .mood-modal__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .mood-modal__option {
+    padding: 8px 3px;
+  }
+
+  .mood-modal__emoji {
+    font-size: 1.3rem;
+  }
+
+  .mood-modal__label {
+    font-size: 0.5rem;
+  }
+}

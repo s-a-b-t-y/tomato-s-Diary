@@ -1,0 +1,36 @@
+{
+  "name": "Cutie Pie J&I Diary",
+  "short_name": "Tomato's Diary",
+  "description": "A peaceful, elegant digital diary — Cutie Pie J&I. Your thoughts find a beautiful home.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#5B9BD5",
+  "background_color": "#111D35",
+  "icons": [
+    {
+      "src": "assets/icons/Logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/Logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Write New Entry",
+      "short_name": "New Entry",
+      "url": "/pages/diary/diary.html",
+      "icons": [
+        {
+          "src": "assets/icons/Logo.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
