@@ -1,3 +1,100 @@
+let deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+});
+
+function showInstallGuide() {
+  const loadingScreen = document.getElementById('loadingScreen');
+  if (loadingScreen) loadingScreen.classList.add('hidden');
+
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isAndroid = /Android/.test(navigator.userAgent);
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+  let platformHTML = '';
+  if (isStandalone) {
+    platformHTML = `<div class="install-guide__installed">Already installed! Launch it from your home screen.</div>`;
+  } else if (deferredInstallPrompt) {
+    platformHTML = `<button class="install-guide__install-btn" id="installAppBtn">Install App</button>`;
+  } else if (isIOS) {
+    platformHTML = `
+      <div class="install-guide__steps">
+        <div class="install-guide__step"><span class="install-guide__step-num">1</span><span>Tap the <strong>Share</strong> button <strong>↗</strong> in Safari</span></div>
+        <div class="install-guide__step"><span class="install-guide__step-num">2</span><span>Scroll down and tap <strong>"Add to Home Screen"</strong></span></div>
+        <div class="install-guide__step"><span class="install-guide__step-num">3</span><span>Tap <strong>"Add"</strong> in the top right corner</span></div>
+      </div>`;
+  } else if (isAndroid) {
+    platformHTML = `
+      <div class="install-guide__steps">
+        <div class="install-guide__step"><span class="install-guide__step-num">1</span><span>Tap the <strong>three dots ⋮</strong> menu in Chrome</span></div>
+        <div class="install-guide__step"><span class="install-guide__step-num">2</span><span>Tap <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong></span></div>
+        <div class="install-guide__step"><span class="install-guide__step-num">3</span><span>Tap <strong>"Install"</strong> to confirm</span></div>
+      </div>`;
+  } else {
+    platformHTML = `
+      <div class="install-guide__steps">
+        <div class="install-guide__step"><span class="install-guide__step-num">1</span><span>Open this site in <strong>Chrome</strong> or <strong>Edge</strong></span></div>
+        <div class="install-guide__step"><span class="install-guide__step-num">2</span><span>Click the <strong>Install</strong> icon in the address bar</span></div>
+        <div class="install-guide__step"><span class="install-guide__step-num">3</span><span>Select <strong>"Add to Home screen"</strong></span></div>
+      </div>`;
+  }
+
+  const overlay = document.createElement('div');
+  overlay.className = 'profile-modal-overlay';
+  overlay.id = 'installGuideModal';
+  overlay.innerHTML = `
+    <div class="profile-modal profile-modal--success">
+      <button class="profile-modal__close" id="installGuideClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="profile-modal__body">
+        <h4>Install Tomato's Diary</h4>
+        ${platformHTML}
+        <div class="install-guide__features">
+          <p><strong>What you get:</strong></p>
+          <ul>
+            <li>Launch from your home screen</li>
+            <li>Full screen, no browser bar</li>
+            <li>Works offline</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const existing = document.getElementById('installGuideModal');
+  if (existing) existing.remove();
+
+  document.body.appendChild(overlay);
+  requestAnimationFrame(() => overlay.classList.add('active'));
+
+  overlay.querySelector('#installGuideClose').addEventListener('click', () => {
+    overlay.classList.remove('active');
+    setTimeout(() => overlay.remove(), 300);
+  });
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      overlay.classList.remove('active');
+      setTimeout(() => overlay.remove(), 300);
+    }
+  });
+
+  const installBtn = overlay.querySelector('#installAppBtn');
+  if (installBtn && deferredInstallPrompt) {
+    installBtn.addEventListener('click', async () => {
+      deferredInstallPrompt.prompt();
+      const { outcome } = await deferredInstallPrompt.userChoice;
+      if (outcome === 'accepted') {
+        overlay.classList.remove('active');
+        setTimeout(() => overlay.remove(), 300);
+      }
+      deferredInstallPrompt = null;
+    });
+  }
+}
+
 function Navbar(activePage) {
   const nav = document.createElement('nav');
   nav.className = 'navbar';
@@ -37,6 +134,7 @@ function Navbar(activePage) {
         <a href="${homePath}" class="navbar__link ${activePage === 'home' ? 'active' : ''}" data-page="home">Home</a>
         <a href="${diaryPath}" class="navbar__link ${activePage === 'diary' ? 'active' : ''}" data-page="diary">Write</a>
         <a href="${entriesPath}" class="navbar__link ${activePage === 'entries' ? 'active' : ''}" data-page="entries">Past Notes</a>
+        <a href="#" class="navbar__link" id="installGuideLink">App Install</a>
       </div>
 
       <div class="navbar__right">
@@ -345,9 +443,15 @@ function initNavbar() {
             currentAvatar.appendChild(img);
           }
         }
-        userDropdown.classList.remove('open');
-        avatar.classList.remove('active');
       });
+    });
+  }
+
+  const installGuideLink = navbar.querySelector('#installGuideLink');
+  if (installGuideLink) {
+    installGuideLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      showInstallGuide();
     });
   }
 
