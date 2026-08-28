@@ -51,8 +51,16 @@ const FireDB = {
     return { success: true, uid: cred.user.uid };
   },
 
-  async login(email, password) {
+  async login(emailOrUsername, password) {
     await this.init();
+    let email = emailOrUsername;
+    // If input is not an email, lookup email by username in Firestore users collection
+    if (!emailOrUsername.includes('@')) {
+      const snap = await this.db.collection('users').where('username', '==', emailOrUsername).limit(1).get();
+      if (!snap.empty) {
+        email = snap.docs[0].data().email;
+      }
+    }
     const cred = await this.auth.signInWithEmailAndPassword(email, password);
     const snap = await this.db.collection('users').doc(cred.user.uid).get();
     const userData = snap.exists ? snap.data() : {};
@@ -117,9 +125,9 @@ const FireDB = {
   async getEntries(uid) {
     await this.init();
     const snap = await this.db.collection('entries')
-      .where('uid', '==', uid)
-      .orderBy('date', 'desc').get();
-    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      .where('uid', '==', uid).get();
+    const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    return list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
   },
 
   async getEntry(entryId) {
