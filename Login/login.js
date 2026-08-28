@@ -69,9 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
       authSubtitle.textContent = 'Start your writing journey today';
       submitText.textContent = 'Sign Up Cutie';
       nameGroup.style.display = 'flex';
+      emailGroup.style.display = 'flex';
       confirmGroup.style.display = 'flex';
       loginOptions.style.display = 'none';
       authName.required = true;
+      authEmail.required = true;
       authConfirm.required = true;
       securityGroup.style.display = 'flex';
       securityAnswerGroup.style.display = 'flex';
@@ -86,9 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
       authSubtitle.textContent = 'Sign in to continue your journey';
       submitText.textContent = 'LOG In Cutie';
       nameGroup.style.display = 'none';
+      emailGroup.style.display = 'none';
       confirmGroup.style.display = 'none';
       loginOptions.style.display = 'flex';
       authName.required = false;
+      authEmail.required = false;
       authConfirm.required = false;
       securityGroup.style.display = 'none';
       securityAnswerGroup.style.display = 'none';
@@ -339,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         if (window.FireDB) {
-          const fbResult = await FireDB.login(authEmail.value.trim(), password);
+          const fbResult = await FireDB.login(username, password);
           if (fbResult.success) {
             firebaseUser = fbResult;
             user = {

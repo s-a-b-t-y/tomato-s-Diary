@@ -333,6 +333,20 @@ function initNavbar() {
   const navbar = document.querySelector('.navbar');
   if (!navbar) return;
 
+  // Start Firebase auto-sync on every page automatically
+  const session = getSession();
+  if (session && window.FireDB) {
+    window.FireDB.init().then(() => {
+      const uid = session.firebaseUid || session.id;
+      if (uid) {
+        window.FireDB.startAutoSync(uid, 45000);
+        if (window.DiaryService && typeof window.DiaryService.loadFromCloud === 'function') {
+          window.DiaryService.loadFromCloud();
+        }
+      }
+    });
+  }
+
   const toggle = navbar.querySelector('.navbar__mobile-toggle');
   const mobileMenu = navbar.querySelector('.navbar__mobile-menu');
   const mobileBackdrop = navbar.querySelector('#mobileBackdrop');
@@ -345,7 +359,6 @@ function initNavbar() {
   const themeToggle = navbar.querySelector('#themeToggle');
   const mobileThemeToggle = navbar.querySelector('#mobileThemeToggle');
 
-  const session = getSession();
   const userName = session ? session.name : '';
 
   window.addEventListener('scroll', () => {
