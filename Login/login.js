@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const authName = document.getElementById('authName');
   const authUsername = document.getElementById('authUsername');
+  const usernameLabel = document.querySelector('label[for="authUsername"]');
   const authEmail = document.getElementById('authEmail');
   const authPassword = document.getElementById('authPassword');
   const authConfirm = document.getElementById('authConfirm');
@@ -68,6 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
       authTitle.textContent = 'Create account';
       authSubtitle.textContent = 'Start your writing journey today';
       submitText.textContent = 'Sign Up Cutie';
+      if (usernameLabel) usernameLabel.textContent = 'Username';
+      authUsername.placeholder = 'Enter your username';
       nameGroup.style.display = 'flex';
       emailGroup.style.display = 'flex';
       confirmGroup.style.display = 'flex';
@@ -87,6 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
       authTitle.textContent = 'Welcome back';
       authSubtitle.textContent = 'Sign in to continue your journey';
       submitText.textContent = 'LOG In Cutie';
+      if (usernameLabel) usernameLabel.textContent = 'Username or Email';
+      authUsername.placeholder = 'Enter your username or email';
       nameGroup.style.display = 'none';
       emailGroup.style.display = 'none';
       confirmGroup.style.display = 'none';
@@ -221,13 +226,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const username = authUsername.value.trim();
     if (!username) {
-      showError(authUsername, usernameError, 'Please enter a username');
+      showError(authUsername, usernameError, isSignUp ? 'Please enter a username' : 'Please enter your username or email');
       valid = false;
-    } else if (!validateUsername(username)) {
-      showError(authUsername, usernameError, '3-20 chars, letters, numbers & underscore only');
-      valid = false;
+    } else if (isSignUp) {
+      if (!validateUsername(username)) {
+        showError(authUsername, usernameError, '3-20 chars, letters, numbers & underscore only');
+        valid = false;
+      } else {
+        markSuccess(authUsername);
+      }
     } else {
-      markSuccess(authUsername);
+      if (!validateUsername(username) && !validateEmail(username)) {
+        showError(authUsername, usernameError, 'Please enter a valid username or email');
+        valid = false;
+      } else {
+        markSuccess(authUsername);
+      }
     }
 
     if (isSignUp) {
@@ -341,6 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let user = null;
       let firebaseUser = null;
 
+      let firebaseError = null;
       try {
         if (window.FireDB) {
           const fbResult = await FireDB.login(username, password);
@@ -365,6 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       } catch (fbErr) {
+        firebaseError = fbErr.message;
         console.warn('[Auth] Firebase login failed, trying localStorage:', fbErr.message);
       }
 
@@ -379,7 +395,22 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!user) {
         authSubmit.classList.remove('loading');
         authSubmit.disabled = false;
-        showError(authUsername, usernameError, 'Invalid username or password');
+        
+        let msg = 'Invalid username/email or password';
+        if (firebaseError) {
+          if (firebaseError.includes('auth/wrong-password') || firebaseError.toLowerCase().includes('password')) {
+            msg = 'Incorrect password. Please try again.';
+          } else if (firebaseError.includes('auth/user-not-found') || firebaseError.toLowerCase().includes('user-not-found')) {
+            msg = 'No account found with this username or email.';
+          } else if (firebaseError.includes('auth/invalid-email') || firebaseError.toLowerCase().includes('invalid-email')) {
+            msg = 'Invalid email address format.';
+          } else if (firebaseError.includes('auth/invalid-credential')) {
+            msg = 'Invalid credentials. Please check your username/email and password.';
+          } else {
+            msg = firebaseError;
+          }
+        }
+        showError(authUsername, usernameError, msg);
         return;
       }
 
