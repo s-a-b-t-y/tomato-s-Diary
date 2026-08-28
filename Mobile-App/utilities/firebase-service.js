@@ -156,6 +156,7 @@ const FireDB = {
     if (this._syncInterval) clearInterval(this._syncInterval);
     intervalMs = intervalMs || 45000;
     this._syncInterval = setInterval(() => this.syncNow(uid), intervalMs);
+    this.syncNow(uid); // Sync immediately on start
     console.log('[FireDB] Auto-sync started every ' + (intervalMs / 1000) + 's');
   },
 
@@ -172,6 +173,7 @@ const FireDB = {
     try {
       await this._syncEntries(uid);
       await this._syncUsers(uid);
+      await this._syncProfile(uid);
       console.log('[FireDB] Sync complete at ' + new Date().toLocaleTimeString());
     } catch (err) {
       console.warn('[FireDB] Sync error:', err.message);
@@ -232,6 +234,46 @@ const FireDB = {
         securityAnswer: plainAnswer,
         provider: user.provider || 'local'
       });
+    }
+  },
+
+  async _syncProfile(uid) {
+    const session = JSON.parse(localStorage.getItem('tomato_diary_session') || '{}');
+    const username = session.username;
+    if (!username) return;
+
+    try {
+      const remoteProfile = await this.getProfile(uid);
+      const localPfp = localStorage.getItem('tomato_diary_pfp_' + username) || '';
+
+      if (remoteProfile && remoteProfile.avatarUrl) {
+        if (remoteProfile.avatarUrl !== localPfp) {
+          localStorage.setItem('tomato_diary_pfp_' + username, remoteProfile.avatarUrl);
+          
+          // Dynamically update pfp images on page
+          const avatars = document.querySelectorAll('.navbar__avatar');
+          avatars.forEach(avatarDiv => {
+            const img = avatarDiv.querySelector('.navbar__avatar-img');
+            if (img) {
+              img.src = remoteProfile.avatarUrl;
+            } else {
+              const newImg = document.createElement('img');
+              newImg.className = 'navbar__avatar-img';
+              newImg.src = remoteProfile.avatarUrl;
+              newImg.alt = session.name || username;
+              avatarDiv.textContent = '';
+              avatarDiv.appendChild(newImg);
+            }
+          });
+        }
+      } else if (localPfp) {
+        await this.saveProfile(uid, {
+          avatarUrl: localPfp,
+          displayName: session.name || username
+        });
+      }
+    } catch (err) {
+      console.warn('[FireDB] Profile sync error:', err.message);
     }
   }
 };

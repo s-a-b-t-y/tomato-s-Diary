@@ -292,6 +292,17 @@ function setUserPfp(dataUrl) {
     const session = getSession();
     if (!session) return;
     localStorage.setItem('tomato_diary_pfp_' + session.username, dataUrl);
+    
+    // Upload profile picture to Firestore immediately if online
+    if (window.FireDB && window.FireDB._ready) {
+      const uid = session.firebaseUid || session.id;
+      if (uid) {
+        window.FireDB.saveProfile(uid, {
+          avatarUrl: dataUrl,
+          displayName: session.name || session.username
+        });
+      }
+    }
   } catch {}
 }
 
